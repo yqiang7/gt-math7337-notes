@@ -1,0 +1,228 @@
+\chapter{Sept.~25 --- Kernels and Schwartz Space}
+
+\section{More Kernels}
+
+\begin{remark}
+  Recall that if $\{k_\lambda\}$ (where
+  $k_\lambda(x) = \lambda k(\lambda x)$)
+  is an
+  approximate identity, then
+  $f * k_\lambda \to f$ in $L^p$-norm.
+  We also have
+  \[
+    (f * k_\lambda)^\wedge
+    = \widehat{f} \cdot \widehat{k}_\lambda.
+  \]
+  Note that $\widehat{k}_\lambda(\xi) = \widehat{k}(\xi/\lambda)$,
+  so $\widehat{k}_\lambda(\xi) \to 1$
+  pointwise.
+  If the Dirichlet kernel $d_{2\pi \lambda}(\xi) = \sin(2\pi \lambda \xi) / (\pi \xi)$
+  were integrable, then we would have
+  $\widehat{d}_{2\pi \lambda}(\xi) = \chi_{[-\lambda, \lambda]}(\xi)$,
+  so we must have
+  $d_{2\pi \lambda} \notin L^1(\R)$.
+
+  Some alternatives are the following:
+  \begin{enumerate}
+    \item 
+      The
+      Fej\'er kernel $w_\lambda(\xi) = d^2_{2\pi \lambda}(\xi) \in L^1(\R)$.
+      We saw this in the proof of the
+      inversion formula.
+    \item The \emph{de la Vall\'ee Poussin kernel}
+      $v_{\lambda}$, which has
+      $\widehat{v}_\lambda$ as a trapezoid
+      which is $1$ on $[-\lambda, \lambda]$
+      and decays linearly to $0$
+      on $[-2\lambda, -\lambda]$ and $[\lambda, 2\lambda]$.
+      One has
+      \[
+        (f * v_\lambda)^\wedge
+        = \widehat{f} \cdot \widehat{v}_\lambda
+        = \widehat{f}
+        \quad \text{on } [-\lambda, \lambda].
+      \]
+      Explicitly, one can define
+      $v(x) = 2w_2(x) - w(x)$ and
+      $v_\lambda(x) = \lambda v(\lambda x)$.
+    \item The \emph{Poisson kernel}
+      $p(x) = 1 / \pi(x^2 + 1)$.
+    \item The \emph{Gauss kernel}
+      $\phi(x) = e^{-\pi x^2}$.
+  \end{enumerate}
+\end{remark}
+
+\begin{exercise}
+  Show that if
+  $f \in L^1(\R)$, then
+  $\supp(\widehat{f})$ is compact
+  if and only if $f = f * g$ for some
+  $g \in L^1(\R)$.
+  Hint: Use the de la Vall\'ee Poussin kernel.
+\end{exercise}
+
+\begin{exercise}
+  Let $\Phi = \widehat{\phi}$, where
+  $\phi$ is the Gauss kernel. Show that
+  $\Phi'(\xi) = -2\pi \xi \Phi(\xi)$.
+  Then solve this differential equation
+  to get $\Phi(\xi) = \Phi(0) \phi(\xi)$.
+  Finally show that $\Phi(0) = 1$, and
+  conclude $\Phi(\xi) = \phi(\xi)$.
+\end{exercise}
+
+\begin{remark}
+  There are other ways to find functions
+  which are their own Fourier transforms.
+  The inversion formula says that
+  if $f, \widehat{f} \in L^1(\R)$,
+  then we have
+  \[
+    f(x)
+    = (\widehat{f})^\vee(x)
+    = f^{\wedge \wedge}(-x)
+    = f^{\wedge \wedge \wedge \wedge}(x).
+  \]
+  In particular, for $f$ sufficiently
+  nice, if we take
+  $g = f + f^{\wedge} + f^{\wedge \wedge} + f^{\wedge \wedge \wedge}$,
+  then $\widehat{g} = g$.
+\end{remark}
+
+\begin{theorem}[Weierstrass approximation theorem]
+  If $f \in C[a, b]$ and $\epsilon > 0$,
+  then there exists a polynomial $p$
+  such that $\|f - p\|_{\infty} = \sup_{x \in [a, b]} |f(x) - p(x)| < \epsilon$.
+\end{theorem}
+
+\begin{proof}
+  Fix $f \in C[a, b]$, and choose
+  $[a, b] \subseteq (-R, R)$.
+  Extend $f$ to a function $g \in C_0(\R)$ on
+  $\R$ which equals $f$ on $[a, b]$
+  and is supported in $(-R, R)$.
+  Let $\phi$ be the Gauss kernel, and
+  choose $\lambda$ so that
+  \[
+    \|g - g * \phi_\lambda\|_\infty < \frac{\epsilon}{2}.
+  \]
+  Note that $\phi_\lambda(x) = \lambda e^{-\pi \lambda^2 x^2}$
+  is analytic
+  and has a Taylor expansion
+  \[
+    \phi_{\lambda}(x)
+    = \sum_{n = 0}^\infty \lambda \frac{(-\pi \lambda^2 x^2)^n}{n!}
+    = \sum_{n = 0}^\infty \frac{(-1)^n \pi^n \lambda^{2n + 1}}{n!} x^{2n}.
+  \]
+  Set $q(x) = \sum_{n = 0}^N \frac{(-1)^n \pi^n \lambda^{2n + 1}}{n!} x^{2n}$.
+  If $N$ is large enough, then we will have
+  \[
+    \sup_{|x| \le 2R} |\phi_\lambda(x) - q(x)|
+    < \frac{\epsilon}{2 \|g\|_1}
+  \]
+  since the Taylor series converges
+  uniformly on compact sets. Then
+  \[
+    |(g * \phi_\lambda)(x) - (g * q)(x)|
+    \le \int_{-R}^R |g(y)| |\phi_{\lambda}(x - y) - q(x - y)| \, dy
+    \le \frac{\epsilon}{2\|g\|_1} \int_{-R}^R |g(y)| \, dy
+    < \frac{\epsilon}{2}
+  \]
+  for $|x| \le R$. So
+  $|f(x) - (g * q)(x)| \le \epsilon$ for
+  $x \in [a, b]$. Finally, observe that
+  \[
+    (g * q)(x)
+    = \sum_{n = 0}^N \frac{(-1)^n \pi^n \lambda^{2n + 1}}{n!} \int g(y) (x - y)^{2n}\, dy,
+  \]
+  which is a polynomial by the binomial
+  theorem. So we can take $p = g * q$.
+\end{proof}
+
+\section{Schwartz Space}
+
+\begin{definition}
+  Define the \emph{Schwartz space}
+  $\mathcal{S}(\R)$ to be
+  \[
+    \mathcal{S}(\R)
+    = \{
+      f \in C^\infty(\R) :
+      x^m f^{(n)}(x) \in L^\infty(\R)
+      \text{ for all } m, n \ge 0
+    \}.
+  \]
+\end{definition}
+
+\begin{remark}
+  Note that $|x^m f^{(n)}(x)| \le C_{m, n}$
+  for some constant $C_{m, n}$, so
+  \[
+    |f^{(n)}(x)| \le \frac{C_{m, n}}{|x|^m}.
+  \]
+  In particular, for every $n$ and polynomial $p$,
+  there exists a constant $C_{n, p}$ such that
+  \[
+    |f^{(n)}(x)| \le \frac{C_{n, p}}{|p(x)|}.
+  \]
+  Note, however, that this does
+  not imply $f$ has exponential decay.
+\end{remark}
+
+\begin{remark}
+  Note that $\rho_{m, n}(f) = \|x^m f^{(n)}\|_\infty$
+  defines a \emph{seminorm} for each $m, n \ge 0$, but not a norm.\footnote{Recall that a \emph{seminorm} $\rho$ is a function satisfying $0 \le \rho(f) < \infty$, $\rho(cf) = |c| \rho(f)$, and $\rho(f + g) \le \rho(f) + \rho(g)$. If we additionally have $\rho(f) = 0$ if and only if $\rho = 0$, then $\rho$ is a \emph{norm}.}
+\end{remark}
+
+\begin{remark}
+  Let $f \in \mathcal{S}(\R)$. Then
+  \begin{align*}
+    \|x^m f^{(n)}\|_1
+    &= \int_{|x| \le 1} |x^m f^{(n)}(x)| \, dx
+    + \int_{|x| \ge 1} |x^m f^{(n)}(x)| \, dx \\
+    &\le 2 \|x^m f^{(n)}\|_\infty
+    + \int_{|x| \ge 1} \frac{|x^{m + 2} f^{(n)}(x)|}{|x|^2} \, dx
+    \le 2 \|x^m f^{(n)}\|_\infty
+    + C \|x^{m + 2} f^{(n)}\|_\infty.
+  \end{align*}
+  In particular, if the
+  $L^\infty$-norms are controlled, then
+  so are the $L^1$-norms.
+\end{remark}
+
+\begin{exercise}
+  Recall the smoothness and decay theorems:
+  The Fourier transform interchanges
+  smoothness and decay. Write
+  $Df = f'$, and show that
+  \[
+    (D^n((-2\pi i x)^m f(x)))^\wedge(\xi)
+    = (2\pi i \xi)^n D^m \widehat{f}(\xi).
+  \]
+  Note that we have
+  \[
+    D^n((-2\pi i x)^m f(x))
+    = \sum_{j = 0}^n \binom{n}{j} D^j (-2\pi i x)^m f^{(n - j)}(x),
+  \]
+  so in particular, the Schwartz condition
+  on $f$
+  implies the Schwartz condition on
+  $\widehat{f}$.
+\end{exercise}
+
+\begin{theorem}
+  If $f \in \mathcal{S}(\R)$, then
+  $\widehat{f} \in \mathcal{S}(\R)$.
+  Moreover, we have
+  $f = (\widehat{f})^\vee$ by the inversion
+  formula, so the
+  Fourier transform $\mathcal{F} : \mathcal{S}(\R) \to \mathcal{S}(\R)$
+  by $f \mapsto \widehat{f}$
+  is a bijection.
+\end{theorem}
+
+\begin{remark}
+  Note that $C^\infty_c(\R) \subsetneq \mathcal{S}(\R)$, and
+  we will see later that
+  $\mathcal{F}(C^\infty_c(\R)) \subseteq \mathcal{S}(\R) \setminus C^\infty_c(\R)$.
+\end{remark}
