@@ -1,0 +1,325 @@
+\chapter{Oct.~23 --- The Paley-Wiener Theorem}
+
+\section{Local Uncertainty Principle}
+
+\begin{remark}
+  Recall the classical uncertainty principle:
+   For $f \in L^2(\R)$,
+      $\|f\|_2^2 \le 4\pi \|xf(x)\|_2^2 \|\xi \widehat{f}(\xi)\|_2^2$.
+    There is also a local version of
+    this statement:
+\end{remark}
+
+\begin{theorem}[Local uncertainty principle]
+  If $f \in L^2(\R)$ and $\epsilon > 0$,
+  then for any $\xi_0 \in \R$, we have
+  \[
+    \int_{\xi_0 - \epsilon}^{\xi_0 + \epsilon} |\widehat{f}(\xi)|^2\, d\xi
+    \le 8 \pi \epsilon \|f\|_2 \|x f(x)\|_2.
+  \]
+\end{theorem}
+
+\section{The Paley-Wiener Theorem}
+
+\begin{remark}
+  Recall the smoothness and decay
+  theorems: If $x, x f(x) \in L^1(\R)$, then
+  $(\widehat{f})'$ exists. ``Extreme decay''
+  corresponds to compact support, where
+  $\supp(f) \subseteq [-T, T]$ if
+  $f = 0$ a.e. outside $[-T, T]$.
+  When this is the case, the
+  \emph{Paley-Wiener theorem}
+  says that $\widehat{f}$ has
+  extreme smoothness:
+  $\widehat{f}$ extends to an analytic
+  function on $\C$.
+\end{remark}
+
+\begin{remark}
+  There is also motivation from
+  Fourier series. The Fourier transform
+  on $\R$ is
+  \[
+    \widehat{f}(\xi)
+    = \int_{-\infty}^\infty f(x) e^{-2\pi i \xi x}\, dx.
+  \]
+  The functions $e_\xi(x) = e^{2\pi i \xi x} : \R \to S^1 \subseteq \C$
+  are continuous group homomorphism, and
+  $dx$ is a Haar measure on $\R$
+  (invariant under the group action).
+  For $\Z$, Haar measure is the counting
+  measure, and for
+  $c = (c_n)_{n \in \Z} \in \ell^1$,
+  we can define its Fourier transform
+  to be
+  \[
+    \widehat{c}(\xi)
+    = \sum_{n = -\infty}^\infty c_n e^{-2\pi i n \xi}, \quad \xi \in \R.
+  \]
+  In fact, we can take $\xi \in [0, 1)$.
+  Also note that $\widehat{c}$ is $1$-periodic.
+
+  Suppose now that $c$ is compactly
+  supported, say only $c_1, \dots, c_N$ are
+  nonzero. Then
+  \[
+    \widehat{c}(\xi)
+    = \sum_{n = 1}^N c_n e^{-2\pi i n \xi}
+    = \sum_{n = 1}^N c_n (e^{-2\pi i \xi})^n
+  \]
+  If we set $z = e^{-2\pi i \xi} \in S^1$,
+  then the above becomes
+  \[
+    \widehat{c}(z)
+    = \sum_{n = 1}^N c_n z^n, \quad |z| = 1,
+  \]
+  which is a polynomial. In particular,
+  $\widehat{c}$ extends to an
+  analytic function for all $z \in \C$.
+\end{remark}
+
+\begin{remark}
+  Suppose $f \in L^2(\R)$ and
+  $\supp(f) \subseteq [-T, T]$
+  (we say that $f$ is ``time-limited''
+  to $[-T, T]$). Then
+  \[
+    \int_{-\infty}^\infty |f(x)|\, dx
+    = \int_{-T}^T |f(x)|\, dx
+    \le \left(\int_{-T}^T |f(x)|^2\, dx\right)^{1/2}
+      \left(\int_{-T}^T 1^2\, dx\right)^{1/2}
+    = (2T)^{1 / 2} \|f\|_2 < \infty,
+  \]
+  so $f \in L^1(\R)$. Thus we can take its
+  Fourier transform as usual:
+  \[
+    \widehat{f}(\xi)
+    = \int_{-T}^T f(x) e^{-2\pi i \xi x}\, dx,
+    \quad \xi = \alpha + i\beta \in \C.
+  \]
+  Note that $e^{-2\pi i \xi x} = e^{-2\pi i \alpha x} e^{2\pi \beta x}$,
+  where $e^{2\pi \beta x} > 0$. Then
+  \[
+    \int_{-T}^T |f(x) e^{-2\pi i \xi x}|\, dx
+    = \int_{-T}^T |f(x)| e^{2\pi \beta x}\, dx
+    \le e^{2\pi |\beta| T} \int_{-T}^T |f(x)|\, dx
+    \le (2T)^{1 / 2} e^{2\pi |\beta| T} \|f\|_2.
+  \]
+  So $\widehat{f}$ can be extended to
+  all of $\C$. We will see that this
+  extension is analytic.
+
+  We now have a function
+  $\widehat{f} : \C \to \C$ satisfying
+  \[
+    |\widehat{f}(\xi)|
+    \le (2T)^{1 / 2} e^{2\pi |\beta| T} \|f\|_2,
+    \quad \xi = \alpha + i\beta \in \C.
+  \]
+  Note that $f \in L^1(\R)$ implies
+  $\widehat{f} \in C_0(\R)$, so $\widehat{f}$
+  is bounded on $\R$. However, the
+  extension to $\C$ cannot be bounded
+  (for non-constant $f$) by Liouville's
+  theorem.
+\end{remark}
+
+\begin{definition}
+  A function $F : \C \to \C$ has
+  \emph{exponential type $T$} if
+  there exists $A > 0$ such that
+  \[
+    |F(\xi)|
+    \le A e^{T|\xi|},
+    \quad \xi \in \C.
+  \]
+\end{definition}
+
+\begin{remark}
+  So from the above discussion,
+  $\widehat{f}$ has exponential type
+  $2\pi T$.
+  We now show that $\widehat{f}$ is
+  analytic on $\C$. Recall that $F$
+  is analytic if and only if $F'$ exists
+  on $\C$. We can compute
+  \[
+    (\widehat{f})'(\xi)
+    = \lim_{\substack{\eta \to 0 \\ \xi \in \C}}
+    \frac{\widehat{f}(\xi + \eta) - \widehat{f}(\xi)}{\eta}
+    = \lim_{\eta \to 0}
+    \int_{-T}^T f(x) \frac{e^{-2\pi i (\xi + \eta) x} - e^{-2\pi i \xi x}}{\eta}\, dx.
+  \]
+  We have seen that $f$ is integrable,
+  and the exponential term is bounded
+  on $[-T, T]$ by the mean value theorem.
+  So by the dominated convergence theorem,
+  we can exchange the limit and integral
+  to get
+  \begin{align*}
+    (\widehat{f})'(\xi)
+    &= \int_{-T}^T f(x) \lim_{\eta \to 0}
+    \frac{e^{-2\pi i (\xi + \eta) x} - e^{-2\pi i \xi x}}{\eta}\, dx \\
+    &= \int_{-T}^T (-2\pi i x) f(x) e^{-2\pi i \xi x}\, dx
+    = ((-2\pi i x) f(x))^\wedge(\xi).
+  \end{align*}
+  Note that $xf(x) \in L^1(\R)$ and also has
+  support in $[-T, T]$, so the above
+  exists for any $\xi \in \C$.
+\end{remark}
+
+\begin{theorem}[Paley-Wiener theorem]
+  We have the following:
+  \begin{enumerate}
+    \item If $f \in L^2(\R)$ and
+      $\supp(f) \subseteq [-T, T]$,
+      then $\widehat{f}$ extends to an
+      analytic function on $\C$
+      with exponential type $2\pi T$.
+    \item If $F : \C \to \C$ is analytic
+      with exponential type $2\pi T$,
+      then there exists $f \in L^2(\R)$
+      with $\supp(f) \subseteq [-T, T]$
+      and $\widehat{f}(\xi) = F(\xi)$
+      for $\xi \in \R$, i.e.
+      $\widehat{f} = F|_{\R}$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1) This was the above discussion.
+
+  (2) The proof is more difficult and
+  uses a lot of complex analysis.
+  See Katznelson's book.
+\end{proof}
+
+\begin{remark}
+  Recall that analytic functions have
+  Taylor expansions. Suppose
+  $F : \C \to \C$ and $F = 0$ on a line
+  segment. Then if $\eta$ lies on the
+  line segment, we can write
+  \[
+    F(\xi)
+    = \sum_{k = 0}^\infty F^{(k)}(\eta) \frac{(\xi - \eta)^k}{k!}.
+  \]
+  Since $F^{(k)}(\eta) = 0$ for all $k$,
+  we get
+  $F \equiv 0$ on all of $\C$. In fact,
+  if $F = 0$ on any set with an accumulation
+  point, then $F \equiv 0$ on $\C$.
+\end{remark}
+
+\begin{corollary}
+  If $f \in L^2(\R)$, $f \ne 0$, has
+  compact support,
+  then $\widehat{f}(\xi) = 0$ for
+  only countably many $\xi$.
+\end{corollary}
+
+\begin{proof}
+  If $\widehat{f}(\xi) = 0$ for uncountably
+  many $\xi$, then there exists
+  $\xi_n \to \xi$ such that
+  $\widehat{f}(\xi_n) = 0$ for all $n$
+  (split $\C$ into countably many compact
+  sets and apply a countability argument).
+  Hence $\widehat{f}, f = 0$.
+\end{proof}
+
+\begin{corollary}
+  If $f \in L^2(\R)$, then
+  $f$ and $\widehat{f}$ are both compactly
+  supported if and only if $f = 0$.
+\end{corollary}
+
+\begin{proof}
+  Suppose $f$ is compactly supported,
+  then $\widehat{f}$ is analytic on $\C$.
+  Suppose $\widehat{f}(\xi) = 0$ a.e. on
+  $\R$
+  outside $[-\Omega, \Omega]$. Since
+  $\widehat{f}$ is analytic and
+  $\R \setminus [-\Omega, \Omega]$
+  has an accumulation point, we get
+  $\widehat{f}, f = 0$.
+\end{proof}
+
+\begin{remark}
+  In particular, the above
+  corollary implies that if
+  $f \in C^\infty_c(\R)$ is nonzero, then
+  $\widehat{f}$ is not compactly supported.
+  But $C_c^\infty(\R) \subseteq \mathcal{S}(\R)$
+  and $\mathcal{F}$ maps
+  $\mathcal{S}(\R)$ onto $\mathcal{S}(\R)$,
+  so we do know $\mathcal{F}(C_c^\infty(\R)) \subseteq \mathcal{S}(\R)$.
+\end{remark}
+
+\section{Hilbert-Schmidt Operators}
+
+\begin{remark}
+Let $H$ be a separable, infinite-dimensional
+Hilbert space. Recall the following
+definitions and results from functional
+analysis:
+\end{remark}
+
+\begin{definition}
+  A linear operator $A : H \to H$ is
+  \emph{compact} if $A(D)$ is contained
+  in a compact set, where
+  $D = \{f \in H : \|f\| \le 1\}$
+  is the closed unit disk in $H$.
+\end{definition}
+
+\begin{theorem}[Spectral theorem for compact, self-adjoint operators]
+  If $A : H \to H$ is a compact, self-adjoint
+  operator, then there exists
+  an orthonormal basis
+  $\{e_n\}_{n \in \N}$ of $H$ such that
+  \[
+    f = \sum_{n = 1}^\infty \langle f, e_n \rangle e_n,
+    \quad
+    A f = \sum_{n = 1}^\infty \lambda_n \langle f, e_n \rangle e_n,
+    \quad
+    A e_n = \lambda_n e_n.
+  \]
+  Moreover, $\lambda_n \to 0$ if there
+  are infinitely many $\lambda_n \ne 0$.
+\end{theorem}
+
+\begin{remark}
+  Note that $\|A e_n\| = \|\lambda_n e_n\| = |\lambda_n| \to 0$,
+  so the identity operator $I$ is not compact.
+\end{remark}
+
+\begin{example}
+  An example of a compact box in
+  $\R^\N$ looks like
+  \[
+    [0, 1] \times [0, 1 / 2]
+    \times [0, 1 / 4] \times \cdots.
+  \]
+\end{example}
+
+\begin{definition}
+  A linear operator $A : H \to H$ is
+  \emph{Hilbert-Schmidt} if there exists
+  an orthonormal basis
+  $\{e_n\}_{n \in \N}$ such that
+  $\sum_{n = 1}^\infty \|A e_n\|^2 < \infty$.
+\end{definition}
+
+\begin{remark}
+  For an operator $A : H \to H$, if we
+  write
+  \[
+    A f(x) =
+    \int_{-\infty}^\infty k(x, y) f(y)\, dy,
+  \]
+  then $A$ is Hilbert-Schmidt if
+  and only if $k \in L^2(\R^2)$.
+\end{remark}
