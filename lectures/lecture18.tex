@@ -1,0 +1,294 @@
+\chapter{Nov.~4 --- Energy Concentration, Part 2}
+
+\section{Energy Concentration, Continued}
+
+\begin{remark}
+  Recall the following problem.
+  Fix $T, \Omega > 0$. We want to determine
+  \[
+    E_{T, \Omega}
+    = \sup \left\{
+      \int_{-T}^T |f|^2 :
+      \|f\|_2 = 1, \supp(\widehat{f}) \subseteq [-\Omega, \Omega]
+    \right\}.
+  \]
+  We previously defined
+  $A_T f = f \chi_{[-T, T]}$ and
+  $B_\Omega f = (\widehat{f} \chi_{[-\Omega, \Omega]})^\vee = f * d_{2\pi \Omega}$,
+  then
+  \[
+    E_{T, \Omega}
+    = \|A_T B_\Omega\|^2
+    = \|B_\Omega A_T B_{\Omega}\|^2
+    = \lambda_1,
+  \]
+  where $\lambda_1$ is the largest eigenvalue of $B_\Omega A_T B_\Omega$
+  (recall that $B_\Omega A_T B_\Omega$ is compact and self-adjoint, so it has
+  eigenvalues $\lambda_n \to 0$).
+  The spectral theorem also gives
+  orthonormal eigenvectors
+  $\{\varphi_n\}_{n \in \N}$:
+  \[
+    B_\Omega A_T
+    B_\Omega f
+    = \sum_{n = 1}^\infty  \lambda_n \langle f, \varphi_n \rangle \varphi_n.
+  \]
+  Note that
+  $B_\Omega (A_T B_\Omega \varphi_n) = \lambda_n \varphi_n$
+  for $\lambda_n \ne 0$, so
+  $\varphi_n \in \mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$
+  and $\supp(\widehat{\varphi}_n) \subseteq [-\Omega, \Omega]$.
+
+  What is $\|A_T \varphi_n\|_2^2$?
+  We can compute
+  \begin{align*}
+    \|A_T \varphi_n\|_2^2
+    &= \langle A_T \varphi_n, A_T \varphi_n \rangle
+    = \langle A_T B_\Omega \varphi_n, A_T B_\Omega \varphi_n \rangle \\
+    &= \langle B_\Omega \underbrace{A_T A_T}_{A_T} B_\Omega \varphi_n, \varphi_n \rangle
+    = \lambda_n \langle \varphi_n, \varphi_n \rangle
+    = \lambda_n \|\varphi_n\|_2^2
+    = \lambda_n.
+  \end{align*}
+  Thus we see that
+  $E_{T, \Omega} = \lambda_1 = \|A_T \varphi_1\|_2^2 < \|\varphi_1\|_2^2 = 1$, so
+  $\varphi_1$ has the greatest energy in
+  $[-T, T]$.
+
+  Note that $\{\varphi_n\}_{n \in \N}$
+  is an orthonormal basis
+  for its closed span, which a priori
+  lies in $\mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$.
+\end{remark}
+
+\begin{prop}\label{prop:onb-bandlimited}
+  $\cspan\{\varphi_n\} = \mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$.
+\end{prop}
+
+\begin{proof}
+  We show $\cspan\{\varphi_n\}^\perp = \{0\}$. Suppose $f \in \mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$ with $f \perp \varphi_n$
+  for all $n$. Then
+  \[
+    f \in \cspan\{\varphi_n\}^\perp
+    = \crange(B_\Omega A_T B_\Omega)^\perp
+    = \ker(B_\Omega A_T B_\Omega).
+  \]
+  Thus we have
+  \[
+    \|A_T f\|_2^2
+    = \langle A_T B_\Omega f, A_T B_\Omega f \rangle
+    = \langle B_\Omega A_T B_\Omega f, f \rangle
+    = 0,
+  \]
+  so $f = 0$ a.e. on $[-T, T]$. By
+  the Paley-Wiener theorem, this implies
+  $f = 0$.
+\end{proof}
+
+\begin{remark}
+  Proposition \ref{prop:onb-bandlimited}
+  implies that there are infinitely
+  many nonzero eigenvalues
+  for $B_\Omega A_T B_\Omega$.
+
+  Moreover, since $B_\Omega$ is the
+  orthogonal projection onto
+  $\mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$
+  and $\{\varphi_n\}$ is an
+  orthonormal basis for
+  $\mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$,
+  we can write
+  \[
+    B_\Omega f
+    = \sum_{n = 1}^\infty \langle f, \varphi_n \rangle \varphi_n.
+  \]
+  Note that $L^2_{[-T, T]}(\R)$
+  is not orthogonal to
+  $\mathcal{F} L^2_{[-\Omega, \Omega]}(\R)$:
+  For example,
+  \[
+    \langle \chi_{[-T, T]}, d_{2\pi \Omega} \rangle
+    = \int_{-T}^T \frac{\sin 2 \pi \Omega x}{\pi x} \, dx
+    \ne 0.
+  \]
+  However, set
+  $\psi_n = \lambda_n^{-1 / 2} A_T \varphi_n$.
+  Then
+  \[
+    \langle \lambda_m^{-1 / 2} A_T \varphi_m, \lambda_n^{-1 / 2}A_T \varphi_n\rangle
+    = \lambda_m^{-1 / 2} \lambda_n^{-1 / 2}
+    \langle B_\Omega A_T B_\Omega \varphi_m, \varphi_n \rangle
+    = \lambda_m^{1 / 2} \lambda_n^{-1 / 2}
+    \langle \varphi_m, \varphi_n \rangle
+    = \delta_{m n}.
+  \]
+  So $\{\psi_n\}_{n \in \N}$ is an
+  orthonormal sequence in
+  $L^2_{[-T, T]}(\R)$.
+\end{remark}
+
+\begin{exercise}
+  Show that $\{\psi_n\}_{n \in \N}$
+  is an orthonormal basis for
+  $L^2_{[-T, T]}(\R)$.
+\end{exercise}
+
+\begin{remark}
+  Note that
+  \[
+    \langle \varphi_m, \varphi_n \rangle
+    = \int_{-\infty}^\infty \varphi_m(x) \overline{\varphi_n(x)} \, dx
+    = 0, \quad m \ne n.
+  \]
+  Furthermore,
+  \[
+    \langle \psi_m, \psi_n \rangle
+    = \lambda^{-1 / 2}_m \lambda^{-1 / 2}_n
+    \int_{-T}^T \varphi_m(x) \overline{\varphi_n(x)} \, dx
+    = 0, \quad m \ne n
+  \]
+  even when the $\varphi_n$ are
+  \emph{not} supported in $[-T, T]$.
+
+  By symmetry (swapping the roles of
+  $A_T$ and $B_\Omega$), one can also
+  compute that
+  \[
+    A_T B_\Omega A_T f
+    = \sum_{n = 1}^\infty \lambda_n \langle f, \psi_n \rangle \psi_n.
+  \]
+  In particular,
+  $A_T B_\Omega A_T$ and
+  $B_\Omega A_T B_\Omega$
+  have the same eigenvalues.
+\end{remark}
+
+\begin{prop}
+  $B_\Omega A_T$ commutes with
+  \[
+    Kf
+    = (T^2 - x^2) f''(x) - 2x f'(x) - 4\pi^2 \Omega^2 x^2 f(x).
+  \]
+\end{prop}
+
+\begin{remark}
+  Since $\varphi_n$ is already
+  band-limited, we have
+  \[
+    B_\Omega A_T \varphi_n
+    = B_\Omega A_T B_\Omega \varphi_n
+    = \lambda_n \varphi_n.
+  \]
+  Moreover, Paley-Wiener
+  implies $\varphi_n$ is infinitely
+  differentiable, so
+  $\varphi_n \in \domain(K)$. Then
+  \[
+    B_\Omega A_T K \varphi_n
+    = K B_\Omega A_T \varphi_n
+    = K(\lambda_n \varphi_n)
+    = \lambda_n K \varphi_n.
+  \]
+  Note that $K \varphi_n \ne 0$, so
+  $K \varphi_n$ is an eigenvector for
+  $B_\Omega A_T$.
+  The multiplicities of the $\lambda_n$
+  is $1$, so $K \varphi_n = \mu \varphi_n$.
+  The eigenfunctions $\varphi_n$
+  of $K$ are known functions called the
+  \emph{prolate spheroidal wave functions}.
+\end{remark}
+
+\section{Approximating Band-Limited Functions}
+
+\begin{remark}
+  We know that $1 > \lambda_1 > \lambda_2 > \cdots \to 0$.
+  Also,
+  \[
+    \|A_T B_\Omega\|_{\mathrm{HS}}^2
+    = \|g_{T, \Omega}\|_2^2
+    = \int_{-T}^T \int_{-\infty}^\infty
+    d_{2\pi \Omega}(x - y)^2 \, dx dy
+    = 4T \Omega,
+  \]
+  where $g_{T, \Omega}$ is the
+  corresponding kernel.
+  The singular values of $A_T B_\Omega$ are
+  \[
+    s_n = \lambda_n ((A_T B_\Omega)^* (A_T B_\Omega))^{1 / 2}
+    = \lambda_n (B_\Omega A_T B_\Omega)^{1 / 2}
+    = \lambda_n^{1 / 2}.
+  \]
+  Thus $4T\Omega = \|A_T B_\Omega\|_{\mathrm{HS}}^2 = \sum_{n = 1}^\infty s_n^2 = \sum_{n = 1}^\infty \lambda_n$.
+  On the other hand,
+  $\|B_\Omega A_T B_\Omega\|_{\mathrm{HS}}^2 = \sum_{n = 1}^\infty \lambda_n^2$, and
+  \[
+    \|B_\Omega A_T B_\Omega\|_{\mathrm{HS}}^2
+    = \|k_{T, \Omega}\|_2^2
+    = \int_{-T}^T \int_{-T}^T
+    d_{2\pi \Omega}(x - y)^2 \, dx dy
+    < 4T \Omega.
+  \]
+  Due to the decay of
+  $d_{2\pi \Omega}(x - y)^2$, for
+  $T$ large, we should expect that
+  $\|B_\Omega A_T B_\Omega\|_{\mathrm{HS}}^2 \to 4T\Omega$.
+  Hence
+  \[
+    \sum_{n = 1}^\infty \lambda_n^2
+    \approx \sum_{n = 1}^\infty \lambda_n.
+  \]
+  Thus intuitively, $\lambda_n$ should be
+  either close to $1$ or close to $0$. In
+  particular, only finitely many
+  terms can be close to $1$, so
+  \[
+    f \approx \sum_{n = 1}^N \lambda \langle f, \varphi_n \rangle \varphi_n
+    \in \mathrm{span}\{\varphi_1, \dots, \varphi_N\}.
+  \]
+  Thus the space of band-limited functions
+  are approximately finite-dimensional
+  in some sense.
+\end{remark}
+
+\begin{theorem}
+  $\#\{n : \lambda_n \ge 1 - \epsilon\} \le 4 T \Omega - C_\epsilon \log (T\Omega)$.
+\end{theorem}
+
+\section{Space of Possible Time and Band Limits}
+
+\begin{remark}
+  Define the energies
+  \begin{align*}
+    \alpha = E_T(f) &= \|A_T f\|_2^2
+    = \int_{-T}^T |f|^2 \\
+    \beta = E_\Omega(f) &= \|B_\Omega f\|_2^2
+    = \int_{-\Omega}^\Omega |\widehat{f}|^2.
+  \end{align*}
+  Which pairs $(\alpha, \beta)$ can be
+  achieved? We have seen that
+  $(\lambda_1, 1)$ and $(\lambda_2, 1)$
+  are possible, while $(1, 1)$ is
+  not by the Paley-Wiener theorem.
+  Similarly,
+  $(1, 0)$ and $(0, 1)$ are
+  not possible by Paley-Wiener. Since
+  the roles of $A_T$ and $B_\Omega$
+  are symmetric, we get that
+  $(1, \lambda_1)$ and
+  $(1, \lambda_2)$ are possible.
+  Note that if $(\alpha, 1)$ is
+  achieved, then so is
+  $(\alpha', 1)$ for any
+  $\alpha' < \alpha$, and a similar
+  statement holds for $(1, \beta)$.
+
+  One can show the space of
+  valid pairs is
+  $(\alpha, \beta) \in [0, 1]^2$ such that
+  \[
+    \cos^{-1}\alpha + \cos^{-1} \beta
+    \ge \cos^{-1}\lambda^{1 / 2},
+  \]
+  which is in the shape of an ellipse.
+\end{remark}
