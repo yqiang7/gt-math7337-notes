@@ -1,0 +1,319 @@
+\chapter{Nov.~6 --- Fourier Series}
+
+\section{The Abstract Fourier Transform}
+
+\begin{definition}
+  A \emph{locally compact abelian (LCA) group}
+  is an abelian group with a Hausdorff
+  topology such that
+  every point has a compact neighborhood,
+  and $(x, y) \mapsto x + y$
+  and $x \mapsto -x$ are continuous.
+\end{definition}
+
+\begin{example}
+  Some examples of LCA groups are
+  $\R^n$, $\Z^n$, $\T^n$, $\Z_N^n$,
+  where $\T = [0, 1)$ with addition
+  modulo $1$.
+\end{example}
+
+\begin{theorem}
+  Every LCA group has a \emph{Haar measure},
+  i.e. a nonzero Radon measure $\mu$
+  which is translation-invariant.
+\end{theorem}
+
+\begin{definition}
+  A \emph{character} on a LCA
+  group is a continuous homomorphism
+  \[\xi : G \to S^1 = \{z \in \C : |z| = 1\},\]
+  i.e. a continuous map
+  with $\xi(x + y) = \xi(x)\xi(y)$.
+\end{definition}
+
+\begin{definition}
+  The \emph{dual group} of
+  $G$ is $\widehat{G} = \{\xi : \xi \text{ is a character of $G$}\}$.
+\end{definition}
+
+\begin{example}
+  Consider $\T = [0, 1)$. Fix $n \in \Z$,
+  then $e_n(x) = e^{2\pi i n x}$ is a
+  character on $\T$. Note that we have
+  $e_n(x) = e_1(x)^n$, and one can show
+  these are all of the characters
+  on $\T$. Thus
+  \[
+    \widehat{\T}
+    = \{e_n : n \in \Z\}
+    \cong \Z.
+  \]
+\end{example}
+
+\begin{example}
+  The characters on $\Z$ are determined
+  by their values at $1$. So
+  for any $\xi \in [0, 1)$, we get a
+  character $e_\xi(n) = e^{2\pi i \xi n}$.
+  In particular, $\widehat{\Z} = \T$.
+\end{example}
+
+\begin{example}
+  We have $\widehat{\Z}_N \cong \Z_N$
+  and $\widehat{\R} \cong \R$.
+  The characters on $\R$ are
+  $e_\xi(x) = e^{2\pi i \xi x}$.
+\end{example}
+
+\begin{remark}
+  The dual group $\widehat{G}$ is a
+  LCA group under
+  the multiplication of characters, where
+  the topology on $\widehat{G}$
+  is the topology of uniform convergence
+  on compact sets (also called the compact-open topology).
+\end{remark}
+
+\begin{theorem}
+  If $G$ is discrete, then $\widehat{G}$
+  is compact. If $G$ is compact (so $G$ has
+  finite measure),
+  then $\widehat{G}$ is discrete,
+  and the characters on $G$ are
+  orthonormal in $L^2(G)$ (in fact, they
+  form an orthonormal basis).
+\end{theorem}
+
+\begin{example}
+  Consider the examples
+  $\widehat{\Z} = \T$,
+  $\widehat{\T} = \Z$,
+  $\widehat{\R} = \R$,
+  $\widehat{\Z}_N = \Z_N$.
+\end{example}
+
+\begin{remark}
+  In some sense, $\R$ being non-compact
+  and non-discrete makes things harder.
+  On the other hand, having dilations in
+  $\R$ can make harmonic analysis easier.
+\end{remark}
+
+\begin{theorem}[Pontryagin duality]
+  ${\widehat{\widehat{G\,}}} \cong G$.
+\end{theorem}
+
+\begin{definition}
+  The \emph{Fourier transform} of
+  $f \in L^1(G)$ (complex-valued) is
+  $\widehat{f} : \widehat{G} \to \C$ defined by
+  \[
+    \widehat{f}(\xi)
+    = \int_G f(x) \overline{\xi(x)} \, d\mu(x), \quad
+    \xi \in \widehat{G},
+  \]
+  where $d\mu$ is the Haar measure on
+  $G$.
+\end{definition}
+
+\begin{example}
+  On the real line, the Fourier transform
+  is
+  \[
+    \widehat{f}(\xi)
+    = \int_{\R} f(x) e^{-2\pi i \xi x} \, dx,
+    \quad \xi \in \R.
+  \]
+  For $\T$, the Fourier coefficients are
+  given by
+  \[
+    \widehat{f}(n)
+    = \int_0^1 f(x) e^{-2\pi i n x} \, dx,
+    \quad n \in \Z.
+  \]
+  For $\Z$, given $c = (c_n)_{n \in \Z}$,
+  \[
+    \widehat{c}(x)
+    = \sum_{n = -\infty}^\infty c_n e^{-2\pi i n x}, \quad x \in \T
+  \]
+  For $\Z_N$, the discrete Fourier transform is
+  \[
+    \widehat{c}(k)
+    = \sum_{n = 0}^{N - 1} c_n e^{-2\pi i n k / N},
+    \quad k \in \Z_N.
+  \]
+\end{example}
+
+\section{Fourier Series}
+
+\begin{definition}
+  The \emph{Fourier transform} of
+  $f \in L^1(\T)$ is the sequence
+  $\widehat{f} = (\widehat{f}(n))_{n \in \Z}$,
+  where
+  \[
+    \widehat{f}(n) = \int_0^1 f(x) e^{-2\pi i n x} \, dx
+  \]
+  are the \emph{Fourier coefficients} of
+  $f$. The \emph{inverse Fourier transform}
+  of $f \in L^1(\T)$ is
+  $\widecheck{f} = (\widecheck{f}(n))_{n \in \Z}$, where
+  \[
+    \widecheck{f}(n)
+    = \int_0^1 f(x) e^{2\pi i n x} \, dx.
+  \]
+  Formally,
+  $\sum_{n \in \Z} \widehat{f}(n) e^{2\pi i n x}$
+  is the \emph{Fourier series} of $f$.
+\end{definition}
+
+\begin{remark}
+  If $f \in L^2(\T)$ and we accept that
+  $\{e_n\}_{n \in \Z}$ is an orthonormal
+  basis for $L^2(\T)$, then
+  \[
+    f(x) = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x}
+    = \sum_{n = -\infty}^\infty \langle f, e_n \rangle e_n,
+  \]
+  where the convergence is in $L^2(\T)$
+  (we do not get pointwise convergence in
+  general).
+\end{remark}
+
+\begin{remark}
+  If $f \in L^1(\T)$, then we have
+  \[
+    |\widehat{f}(n)|
+    \le \int_0^1 |f(x) e^{-2\pi i n x}| \, dx
+    = \|f\|_{L^1},
+  \]
+  so we see that
+  $\widehat{f} \in \ell^\infty(\Z)$.
+\end{remark}
+
+\begin{remark}
+  If we define
+  $\widecheck{c}(x) = \sum_{n = -\infty}^\infty c_n e^{2\pi i n x}$,
+  then we can view the Fourier series as
+  \[
+    (\widehat{f})^{\vee}(x)
+    = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x}.
+  \]
+\end{remark}
+
+\begin{example}
+  For $0 < \alpha \le 1$, consider
+  the function
+  \[
+    g(x) = \sum_{m = 0}^\infty 2^{-\alpha m} e^{2\pi i 2^m x}, \quad x \in \T
+  \]
+  which converges absolutely in
+  $C(\T)$.
+  One can show that $g$ is
+  nowhere differentiable.
+
+  Weierstrass first showed that
+  $g(x) = \sum_{m = 0}^\infty a^{-m} \cos(b^m x)$
+  is nowhere differentiable for
+  $a, b$ large enough.
+\end{example}
+
+\section{Partial Sums of Fourier Series}
+\begin{definition}
+  For $f \in L^1(\T)$, define the
+  \emph{partial sums}
+  \[
+    S_N f(x)
+    = \sum_{n = -N}^N \widehat{f}(n) e^{2\pi i n x}.
+  \]
+\end{definition}
+
+\begin{remark}
+  Consider a discrete characteristic function
+  \[
+    \chi_N(n) =
+    \begin{cases}
+      1 & |n| \le N,\\
+      0 & |n| > N.
+    \end{cases}
+  \]
+  Note that $\chi_N \in \ell^1(\Z)$.
+  Then we can compute that
+  \[
+    \widehat{\chi}_N(x)
+    = \widecheck{\chi}_N(x)
+    = \sum_{n = -\infty}^\infty \chi_N(n) e^{2\pi i n x}
+    = \sum_{n = -N}^N e^{2\pi i n x}
+    = \frac{\sin((2N + 1) \pi x)}{\sin(\pi x)} = d_N(x)
+  \]
+  by the geometric series formula. Note
+  that $d_N \in C(\T) \subseteq L^1(\T)$.\footnote{Note that $\T$ is compact, so a continuous function on $\T$ is automatically integrable.}
+  We also have
+  $\|d_N\|_1 \to \infty$.
+\end{remark}
+
+\begin{remark}
+  Using the \emph{Dirichlet kernel}
+  $d_N$, we can write the partial sums as
+  \begin{align*}
+    S_N f(x)
+    &= \sum_{n = -N}^N \widehat{f}(n) e^{2\pi i n x}
+    = \sum_{n = -N}^N
+    \left(\int_0^1 f(t) e^{-2\pi i n t} \, dt\right) e^{2\pi i n x} \\
+    &= \int_{0}^1 f(t) \sum_{n = -N}^N e^{2\pi i n (x - t)} \, dt
+    = \int_0^1 f(t) d_N(x - t) \, dt
+    = (f * d_N)(x).
+  \end{align*}
+  Intuitively,
+  $S_N f = (\widehat{f} \chi_N)^\vee = (\widehat{f})^{\vee} * \widecheck{\chi}_N = f * d_N$,
+  but the above is a direct proof.
+\end{remark}
+
+\section{Approximate Identities on \texorpdfstring{$\T$}{T}}
+
+\begin{definition}
+  An \emph{approximate identity} on
+  $\T$ is a sequence
+  $\{k_n\}_{n \in \N}$ such that
+  \begin{enumerate}
+    \item $k_n \in L^1(\T)$ and
+      $\displaystyle \int_{0}^1 k_n(x)\, dx = 1$;
+    \item $\sup_{n \in \N} \|k_n\|_1 < \infty$;
+    \item for any $\delta > 0$,
+      $\displaystyle \int_{|x| \ge \delta} |k_n(x)| \, dx \to 0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{remark}
+  The Dirichlet kernel $d_N$ does not
+  form an approximate identity.
+\end{remark}
+
+\begin{definition}
+  For $f \in L^1(\T)$, define the
+  \emph{Ces\`aro sums}
+  \[
+    \sigma_N f(x)
+    = \frac{S_0 f(x) + S_1 f(x) + \cdots + S_N f(x)}{N + 1}.
+  \]
+  Note that this is the average of the
+  partial sums.
+\end{definition}
+
+\begin{remark}
+  We can rewrite the Ces\`aro sums as
+  \[
+    \sigma_N f(x)
+    = \sum_{n = -N}^N \underbrace{\left(1 - \frac{|n|}{N + 1}\right)}_{W_N(n)} \widehat{f}(n) e^{2\pi i n x}
+    = (f * \widehat{W}_N)(x).
+  \]
+  We define the \emph{Fej\'er kernel}
+  to be
+  \[
+    w_N(x)
+    = \widehat{W}_N(x)
+    = \frac{1}{N + 1}
+    \left(\frac{\sin((N + 1) \pi x)}{\sin(\pi x)}\right)^2.
+  \]
+\end{remark}
