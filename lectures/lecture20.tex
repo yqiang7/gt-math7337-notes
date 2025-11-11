@@ -1,0 +1,265 @@
+\chapter{Nov.~11 --- Fourier Series, Part 2}
+
+\section{Approximate Identities on \texorpdfstring{$\T$}{T}, Continued}
+\begin{remark}
+  Using a similar proof as in the
+  case for $\R$, for $f \in L^1(\T)$, we have
+  \[
+    \widehat{f}
+    \in c_0(\Z) = \{c = (c_n) : c_n \to 0 \text{ as } |n| \to \infty\}.
+  \]
+  However, in general
+  $\widehat{f} \notin \ell^1(\Z)$.
+\end{remark}
+
+\begin{exercise}
+  Let $d_N$ be the Dirichlet kernel on
+  $\T$. Show that
+  \[
+    \frac{4}{\pi^2}
+    \sum_{k = 1}^N \frac{1}{k}
+    \le \|d_N\|_1
+    \le 3 + \frac{4}{\pi^2} \sum_{k = 1}^N \frac{1}{k}.
+  \]
+  In particular, $\|d_N\|_1 \to \infty$ as $N \to \infty$,
+  so $d_N$ does not form an approximate
+  identity.
+\end{exercise}
+
+\begin{remark}
+  Define the function
+  \[
+    W_N(x)
+    =
+    \begin{cases}
+      1 - |n| / (N + 1) & |n| \le N,\\
+      0 & |n| > N.
+    \end{cases}
+  \]
+  Note that $W_N = (\chi_N * \chi_N) / (2N + 1)$
+  and $\widehat{W}_{2N} = (\widehat{\chi}_N)^2 = d_N^2 / (2N + 1)$.
+  The Fej\'er kernel is
+  \[
+    w_N = \widehat{W}_N
+    = \frac{1}{N} \left(\frac{\sin((N + 1)\pi x)}{\sin(\pi x)}\right)^2,
+  \]
+  and one can check that
+  $\int_0^1 w_N = 1$ and
+  $\|w_N\|_1 = 1$.
+\end{remark}
+
+\begin{theorem}
+  $(f * \widecheck{W}_N)(x) = (f * w_N)(x)$.
+\end{theorem}
+
+\begin{exercise}
+  $\{w_N\}_{N \in \N}$ forms an
+  approximate identity on $\T$.
+\end{exercise}
+
+\begin{remark}
+  Unlike the real line, we cannot just
+  take any $L^1$ function and dilate it
+  to form an approximate identity on $\T$,
+  as the dilations need not be $1$-periodic.
+\end{remark}
+
+\begin{exercise}
+  If $\{k_N\}$ is an approximate identity
+  on $\T$, then:
+  \begin{enumerate}
+    \item For $1 \le p < \infty$,
+      $f \in L^p(\T)$ implies
+      $f * k_N \to f$ in $L^p$-norm.
+    \item $f \in C(\T)$ implies
+      $f * k_N \to f$ uniformly.
+  \end{enumerate}
+\end{exercise}
+
+\section{The Inversion Formula on \texorpdfstring{$\T$}{T}}
+
+\begin{theorem}
+  If $f \in L^1(\T)$ and $\widehat{f} \in \ell^1(\Z)$, then
+  \[
+    f(x) = (\widehat{f})^\vee(x)
+    = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x},
+  \]
+  where the above series converges
+  uniformly in $C(\T)$.
+\end{theorem}
+
+\begin{proof}
+  Note that $(\widehat{f})^\vee(x) = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x}$
+  converges absolutely in
+  the norm of $C(\T)$ since
+  \[
+    \sum_{n = -\infty}^\infty \|\widehat{f}(n) e^{2\pi i n x}\|_{\infty}
+    = \sum |\widehat{f}(n)|
+    < \infty.
+  \]
+  In particular, this shows that
+  $(\widehat{f})^\vee \in C(\T)$.
+  Also $f * w_N \to f$ in $L^1$-form, where
+  \[
+    (f * w_N)(x)
+    = \sum_{n = -N}^N \left(1 - \frac{|n|}{N + 1}\right) \widehat{f}(n) e^{2\pi i n x}.
+  \]
+  Note that $(1 - |n|/(N + 1)) \widehat{f}(n) \to \widehat{f}(n)$
+  pointwise as $N \to \infty$, and
+  \[
+    \left|\left(1 - \frac{|n|}{N + 1}\right)\widehat{f}(n)\right|
+    \le |\widehat{f}(n)|
+    \in \ell^1(\Z),
+  \]
+  so by the dominated convergence theorem
+  (for counting measure)
+  \[
+    (f * w_N)(x) \xrightarrow[N \to \infty]{} \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x} = (\widehat{f})^\vee(x)
+  \]
+  pointwise.
+  Since $f * w_N \to f$ in $L^1$-norm,
+  there exists a subsequence
+  $f * w_{N_k} \to f$ pointwise a.e.,
+  hence we see that
+  $f = (\widehat{f})^\vee$ a.e.
+  Since $f$ and $(\widehat{f})^\vee$ are
+  continuous, we get that
+  $f = (\widehat{f})^\vee$ everywhere.
+\end{proof}
+
+\begin{corollary}
+  If $f \in L^1(\T)$ and
+  $\widehat{f}(n) = 0$ for every $n$,
+  then $f = 0$ a.e. Moreover, if
+  $f, g \in L^1(\T)$ and
+  $\widehat{f}(n) = \widehat{g}(n)$
+  for all $n$, then
+  $f = g$ a.e.
+\end{corollary}
+
+\begin{definition}
+  The \emph{Fourier algebra}
+  (or \emph{Wiener algebra}) on $\T$ is
+  \[
+    A(\T)
+    = \{f \in L^1(\T) : \widehat{f} \in \ell^1(\Z)\}.
+  \]
+\end{definition}
+
+\begin{remark}
+  The Fourier algebra
+  $A(\T)$ is closed under
+  convolution and forms a Banach algebra.
+  Moreover, it is a dense subspace of
+  $C(\T)$.
+\end{remark}
+
+\section{\texorpdfstring{$L^2$}{L2}-Convergence of Fourier Series}
+
+\begin{remark}
+  Let $e_n(x) = e^{2\pi i n x}$. The
+  functions $e_n$ are orthonormal in
+  $L^2(\T)$: For $n \ne m$,
+  \[
+    \langle e_m, e_n \rangle
+    = \int_0^1 e^{2\pi i m x} \overline{e^{2\pi i n x}} \, dx
+    = \int_0^1 e^{2\pi i (m - n) x} \, dx
+    = \left.\frac{e^{2\pi i (m - n) x}}{2\pi i (m - n)}\right|_{x = 0}^1
+      = 0.
+  \]
+\end{remark}
+
+\begin{theorem}
+  Let $\{f_n\}_{n \in \N}$ be an
+  orthonormal sequence in a Hilbert
+  space $H$. Then the following
+  are equivalent:
+  \begin{enumerate}
+    \item $\{f_n\}_{n \in \N}$ is
+      \emph{complete} (i.e. $\cspan\{f_n\} = H$).
+    \item $f = \sum_{n = 1}^\infty c_n f_n$
+      in $H$
+      for a unique choice of scalars $c_n$.
+      That is, $\{f_n\}$ is a
+      \emph{Schauder basis} for $H$.
+    \item $f = \sum_{n = 1}^\infty \langle f, f_n \rangle f_n$,
+      where the convergence is in $H$.
+    \item (Plancherel)
+      $\|f\|^2 = \sum_{n = 1}^\infty |\langle f, f_n \rangle|^2$.
+    \item (Parseval)
+      $\langle f, g \rangle = \sum_{n = 1}^\infty \langle f, f_n \rangle \langle f_n, g \rangle$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{example}
+  The above theorem does not hold when
+  the sequence is not orthonormal.
+  Recall the \emph{Weierstrass approximation theorem}:
+  $\{x^n\}_{n = 0}^\infty$ is complete
+  in $C(\T)$. But not every
+  $f \in C(\T)$ can be written
+  as $f(x) = \sum_{n = 0}^\infty c_n x^n$
+  (such functions are infinitely
+  differentiable in some disk).
+\end{example}
+
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item For $1 \le p < \infty$,
+      $\{e_n\}_{n \in \N}$ is
+      complete in $L^p(\T)$.
+    \item $\{e_n\}_{n \in \N}$ is
+      complete in $C(\T)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1) If $f \in L^p(\T)$, then we have
+  \[
+    (f * w_N)
+    = \sum_{n = -N}^N \left(1 - \frac{|n|}{N + 1}\right) \widehat{f}(n) e^{2\pi i n x}
+    \xrightarrow[N \to \infty]{} f
+  \]
+  in $L^p$-norm. But
+  $f * w_n \in \mathrm{span}\{e_n\}_{n \in \Z}$,
+  so $\cspan\{e_n\}_{n \in \Z} = L^p(\T)$.
+  The same proof works for (2).
+\end{proof}
+
+\begin{corollary}
+  $\{e_n\}_{n \in \Z}$ is an orthonormal
+  basis for $L^2(\T)$. Furthermore,
+  \[
+    f = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x},
+  \]
+  where the above convergence is
+  in $L^2$-norm. Moreover, one has
+  \begin{enumerate}
+    \item (Plancherel) $\|f\|_2^2
+      = \sum_{n = -\infty}^\infty |\widehat{f}(n)|^2$,
+    \item (Parseval)
+      $\langle f, g \rangle = \langle \widehat{f}, \widehat{g} \rangle
+      = \sum_{n = -\infty}^\infty \widehat{f}(n) \overline{\widehat{g}(n)}$,
+  \end{enumerate}
+  so the Fourier transform
+  operator
+  $\mathcal{F} : L^2(\T) \to \ell^2(\Z)$
+  given by $f \mapsto \widehat{f}$
+  is unitary.
+\end{corollary}
+
+\begin{theorem}
+  If $1 < p < \infty$, then
+  $S_N f = (f * d_N)(x) = \sum_{n = -N}^N \widehat{f}(n) e^{2\pi i n x}$
+  converges in $L^p$-norm, so
+  \[
+    f = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x}
+  \]
+  in $L^p$-norm with respect to the
+  ordering $\Z = \{0, -1, 1, -2, 2, -3, 3, \dots\}$.
+  However, the convergence is conditional:
+  Only this ordering (and finite
+  permutations of it) need converge
+  when $p \ne 2$.
+\end{theorem}
