@@ -1,0 +1,312 @@
+\chapter{Nov.~13 --- Fourier Series, Part 3}
+
+\section{Shannon Sampling Theorem}
+
+\begin{definition}
+  Define the \emph{Paley-Wiener space}
+  to be
+  \[
+    \mathrm{PW}(\R)
+    = \mathcal{F} L_{[-1 / 2, 1 / 2]}^2(\R)
+    = \{f \in L^2(\R) : \supp(\widehat{f}) \subseteq [-1 / 2, 1 / 2]\}.
+  \]
+\end{definition}
+
+\begin{remark}
+  Set $e_n(x) = e^{-2\pi i nx} \chi_{[-1 / 2, 1 / 2]}(x) = M_n \chi_{[-1 / 2, 1 / 2]}(x)$,
+  then
+  \[
+    \widecheck{e}_n(x)
+    = T_n \widecheck{\chi}_{[-1 / 2, 1 / 2]}(x)
+    = \frac{\sin(\pi(x - n))}{\pi(x - n)}.
+  \]
+  Since $\{e_n\}$ is an orthonormal
+  basis for $L^2_{[-1 / 2, 1 / 2]}(\R)$,
+  the $\{\widecheck{e}_n\}$ form an orthonormal basis for $\mathrm{PW}(\R)$.
+  Note that if $f \in \mathrm{PW}(\R)$,
+  then we can write
+  \[
+    f(x)
+    = \sum_{n = -\infty}^\infty
+    \langle f, \widecheck{e}_n \rangle
+    \widecheck{e}_n(x).
+  \]
+  By the unitarity of the Fourier transform,
+  we can compute that
+  \[
+    \langle f, \widecheck{e}_n \rangle
+    = \langle \widehat{f}, e_n \rangle
+    = \int_{-1 / 2}^{1 / 2} \widehat{f}(\xi) e^{2\pi i n \xi} \, d\xi
+    = \int_{-\infty}^{\infty} \widehat{f}(\xi) e^{2\pi i n \xi} \, d\xi
+    = (\widehat{f})^\vee(n)
+    = f(n).
+  \]
+  Note that the third equality follows
+  from $\supp(\widehat{f}) \subseteq [-1 / 2, 1 / 2]$. Thus
+  \[
+    f(x) = \sum_{n = -\infty}^\infty
+    f(n) \frac{\sin(\pi(x - n))}{\pi(x - n)}.
+  \]
+  This is called the
+  \emph{Shannon sampling theorem}
+  (or \emph{classical sampling theorem}),
+  i.e. that any function in $\mathrm{PW}(\R)$
+  is completely determined by its
+  values on the integers.
+\end{remark}
+
+\begin{remark}
+  Fix $b > 0$, and set
+  $e_{nb}(x) = e^{2\pi i nbx}$.
+  This is an orthogonal basis for
+  $L^2[0, 1 / b]$.
+\end{remark}
+
+\begin{example}
+  If we set $b = 1 / 2$, then we can write
+  \[
+    \{e_{n / 2}\}_{n \in \Z}
+    = \{e_n\}_{n \in \Z}
+    \cup \{e_{(n + 1) / 2}\}_{n \in \Z}.
+  \]
+  This is a union of two orthonormal
+  bases for $L^2[0, 1]$.
+  For $f \in L^2[0, 1]$, we can write
+  \[
+    2 f
+    = \sum_{n = -\infty}^\infty
+    \langle f, e_n \rangle e_n
+    + \sum_{n = -\infty}^\infty
+    \langle f, e_{(n + 1) / 2} \rangle
+    e_{(n + 1) / 2}
+    = \sum_{n \in \Z}
+    \langle f, e_{n / 2} \rangle
+    e_{n / 2}.
+  \]
+\end{example}
+
+\begin{remark}
+  If we take $0 < b < 1$ and
+  consider $e^{2\pi i n bx} = e_{bn}(x)$
+  in $L^2[0, 1]$, then for
+  $f \in L^2[0, 1] \subseteq L^2[0, 1 / b]$,
+  \[
+    f = \frac{1}{b}
+    \sum_{n = -\infty}^\infty
+    \langle f, e_{bn} \rangle
+    e_{bn}
+  \]
+  in $L^2[0, 1 / b]$. Since
+  $f = 0$ on $[1, 1 / b]$, we have
+  the same expansion in
+  $L^2[0, 1]$. Note, however,
+  that this expansion is not orthogonal
+  and not unique. These sets
+  $\{e_{bn}\}_{n \in \Z}$ are called
+  \emph{frames}.
+\end{remark}
+
+\section{Weyl's Equidistribution Theorem}
+
+\begin{theorem}\label{thm:weyl-equidistribution}
+  If $\alpha \in \T$ is irrational, then
+  $\{k \alpha\}_{k \in \N}$
+  is \emph{equidistributed} in
+  $[0, 1)$, i.e.
+  \[
+    \lim_{N \to \infty}
+    \frac{\#\{1 \le k \le N : k\alpha \Mod{1} \in (a, b)\}}{N}
+    = \lim_{N \to \infty} \frac{1}{N} \sum_{k = 1}^N \chi_{(a, b)}(k \alpha)
+    = b - a
+  \]
+  for every $0 \le a < b \le 1$.
+\end{theorem}
+
+\begin{remark}
+  Consider $f \in C(\T)$. Then we can
+  view
+  $\frac{1}{N}\sum_{k = 1}^N f(k \alpha)$
+  as some type of Riemann sum, so we might
+  expect that
+  \[
+    \frac{1}{N} \sum_{n = 1}^N f(k\alpha)
+    \xrightarrow[N \to \infty]{} \int_0^1 f(x) \, dx.
+  \]
+  The \emph{Birkhoff ergodic theorem} says
+  that the above average in fact converges
+  to the integral (given that
+  $\{k\alpha\}$ is equidistributed).
+  In fact, the result holds for
+  any $f \in L^1(\T)$.
+\end{remark}
+
+\begin{exercise}
+  Prove the above statement for
+  $e_n(x) = e^{2\pi i n x}$
+  (and thus for trigonometric polynomials
+  $p(x) = \sum_{n = -N}^N c_n e^{2\pi i nx}$).
+  Then apply density to prove this
+  for $f \in C(\T)$.
+\end{exercise}
+
+\begin{proof}[Proof of Theorem \ref{thm:weyl-equidistribution}]
+  Approximate $\chi_{(a, b)}$ by
+  a trapezoidal continuous
+  function $f$ which equals
+  $\chi_{(a, b)}$ on
+  $(a + \epsilon, b - \epsilon)$
+  and decays linearly to $0$ on
+  $[a, a + \epsilon]$ and
+  $[b - \epsilon, b]$. Then
+  \[
+    b - a - \epsilon
+    = \int_0^1 f(x)\, dx
+    = \lim_{N \to \infty} \frac{1}{N} \sum_{k = 1}^N f(k \alpha)
+    \le \liminf_{N \to \infty}
+    \frac{1}{N} \sum_{k = 1}^N \chi_{(a, b)}(k \alpha).
+  \]
+  Taking a similar approximation with
+  $g$ which equals
+  $\chi_{(a, b)}$ on
+  $[a, b]$ and decays linearly to $0$ on
+  $[a  - \epsilon, a]$ and
+  $[b, b + \epsilon]$, we also get an
+  upper bound:
+  \[
+    \limsup_{N \to \infty}
+    \frac{1}{N} \sum_{k = 1}^N \chi_{(a, b)}(k \alpha)
+    = \lim_{N \to \infty}
+    \frac{1}{N} \sum_{k = 1}^N g(k \alpha)
+    \le \int_0^1 g(x) \, dx
+    = b - a + \epsilon.
+  \]
+  This holds for arbitrary $\epsilon$,
+  hence the limit is equal to $b - a$.
+\end{proof}
+
+\begin{corollary}[Kronecker's theorem]
+  $\{k \alpha \Mod{1}\}_{k \in \N}$
+  is dense in $[0, 1)$.
+\end{corollary}
+
+\section{\texorpdfstring{$L^p$}{Lp}-Convergence of Fourier Series}
+
+\begin{remark}
+  Recall that $\{e_n\}_{n \in \Z}$ is
+  complete in $L^p(\T)$ and $C(\T)$, i.e.
+  $\mathrm{span}\{e_n\}_{n \in \Z}$ is
+  dense.
+
+  \pagebreak
+  For $1 \le p < \infty$, if
+  $f \in L^p(\T)$, do the partial sums
+  \[
+    S_N f(x)
+    = \sum_{n = -N}^N \widehat{f}(n) e^{2\pi i n x}
+    = (f * d_N)(x)
+  \]
+  converge to $f$ in $L^p$-norm?
+
+  The motivation is as follows.
+  Suppose that $S_N f \to f$
+  in $L^p$ for every $f \in L^p(\T)$.
+  Then we have a linear operator
+  $S_N : L^p(\T) \to L^p(\T)$ on a
+  Banach space. Moreover, the convergence
+  is also pointwise. Thus for any individual
+  $f \in L^p(\T)$,
+  \[
+    \sup_{N \in \N} \|S_N f\|_{p}
+    < \infty.
+  \]
+  Then by the Banach-Steinhaus theorem (also
+  called the uniform boundedness principle),
+  we get
+  \[
+    \sup_{N \in \N} \|S_N\|
+    = \sup_{N \in \N} \sup_{\|f\|_p = 1}
+    \|S_N f\|_p
+    < \infty
+  \]
+  In fact, this is equivalent to the
+  $L^p$-convergence of Fourier series,
+  and idea behind the proof is to instead
+  argue about the uniform boundedness
+  of $S_N$.
+
+  Note that $\|S_N f\|_p = \|f * d_N\|_p \le \|f\|_p \|d_N\|_1$,
+  so $\|S_N\| \le \|d_N\|_1 \to \infty$.
+
+  For $p = 1$, we can argue as follows.
+  Fix an approximate identity
+  $\{k_\lambda\}$ with
+  $k_\lambda \ge 0$, so that
+  \[
+    \|k_\lambda\|_1
+    = \int_0^1 |k_\lambda|
+    = \int_0^1 k_\lambda
+    = 1.
+  \]
+  Then we can see that
+  \[
+    \|S_N\|
+    \ge \|S_N k_\lambda\|_1
+    = \|k_\lambda * d_N\|_1
+    \xrightarrow[\lambda \to \infty]{} \|d_N\|_1
+  \]
+  since $k_\lambda * d_N \to d_N$ in $L^1$.
+  Thus $\|S_N\| \ge \|d_N\|_1 \to \infty$,
+  so the partial sums cannot converge
+  in $L^1$. In particular,
+  $\{e_n\}_{n \in \N}$ is \emph{not}
+  a Schauder basis for $L^1(\T)$.
+  A similar argument works to show that
+  $\{e_n\}_{n \in \N}$ is not a Schauder
+  basis for $C(\T)$. However,
+  one has the following:
+\end{remark}
+
+\begin{theorem}
+  $\{e_n\}_{n \in \Z}$ is a
+  Schauder basis for $L^p(\T)$
+  for $1 < p < \infty$, with the
+  ordering
+  \[
+    \Z = \{0, -1, 1, -2, 2, \ldots\}.
+  \]
+\end{theorem}
+
+\begin{example}[Haar system]
+  Another example of a Schauder basis
+  is the following. Let
+  \[
+    \varphi = \chi_{[0, 1)} \quad \text{and} \quad
+    \psi = \chi_{[0, 1 / 2)} - \chi_{[1 / 2, 1)}.
+  \]
+  Note that $\langle \varphi, \psi \rangle = 0$.
+  Then we can define
+  \[
+    \psi_1 = 2^{1 / 2} \psi(2x)
+    \quad \text{and} \quad
+    \psi_2 = 2^{1 / 2} \psi(2x - 1),
+  \]
+  which are still orthogonal with
+  $\varphi, \psi$ and with each other.
+  Continuing this process, we get an
+  orthonormal basis for $L^2(\T)$.
+  Moreover, this is a Schauder basis
+  for $L^p(\T)$ for $1 < p < \infty$
+  and it is unconditional, i.e.
+  the convergence does not depending
+  on the ordering of the functions.
+\end{example}
+
+\begin{remark}
+  There also exists a continuous analogue
+  of the Haar system, the functions
+  are called $D_4$ and $W_4$.
+  The functions $\varphi, \psi$ from
+  the Haar system are known as
+  $D_2, W_2$. These are called
+  \emph{wavelets}.
+\end{remark}
