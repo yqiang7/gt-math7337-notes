@@ -1,0 +1,432 @@
+\chapter{Nov.~18 --- Fourier Series, Part 4}
+
+\section{The Poisson Summation Formula}
+
+\begin{remark}
+  Suppose $f \in L^1(\R)$
+  Set $\varphi(x) = \sum_{n = -\infty}^\infty f(x + n)$.
+  Then by Fubini-Tonelli,
+  \[
+    \|\varphi\|_1
+    = \int_0^1 \left|\sum_{n = -\infty}^\infty f(x + n)\right|
+    \le 
+    \sum_{n = -\infty}^\infty \int_0^1 |f(x + n)|
+    = \sum_{n = -\infty} \int_{n}^{n + 1} |f|
+    = \int_{-\infty}^\infty |f|
+    = \|f\|_1 < \infty,
+  \]
+  so $\varphi \in L^1(\T)$.
+  Moreover, the integrals are the
+  same if we do not take absolute
+  values.
+\end{remark}
+
+\begin{exercise}
+  Let $f, \varphi$ as above.
+  Prove that
+  \[
+    \widehat{\varphi}(n)
+    = \int_0^1 \sum_{n = -\infty}^\infty f(x) e^{-2\pi i n x} \, dx
+    = \widehat{f}(n).
+  \]
+\end{exercise}
+
+\begin{theorem}[Poisson summation]
+  Let $f : \R \to \C$.
+  If there exist $C, \epsilon > 0$
+  such that
+  \[
+    |f(x)| \le \frac{C}{(1 + |x|)^{1 + \epsilon}}
+    \quad \text{and} \quad
+    |\widehat{f}(x)| \le \frac{C}{(1 + |x|)^{1 + \epsilon}},
+  \]
+  then for every $x \in \R$,
+  \[
+    \sum_{n = -\infty}^\infty f(x + n)
+    = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x}.
+  \]
+  In particular, setting $x = 0$
+  one obtains
+  \[
+    \sum_{n = -\infty}^\infty f(n)
+    = \sum_{n = -\infty}^\infty \widehat{f}(n).
+  \]
+\end{theorem}
+
+\begin{proof}
+  Both $f, \widehat{f} \in L^1(\R)$,
+  hence $f, \widehat{f} \in C_0(\R)$
+  by Fourier inversion.
+  Also $\varphi \in L^1(\T)$ and
+  \[
+    \sum_{n = -\infty}^\infty
+    |\widehat{\varphi}(n)|
+    = \sum_{n = -\infty}^\infty
+    |\widehat{f}(n)|
+    < \infty,
+  \]
+  so $\widehat{\varphi} \in \ell^1(\Z)$.
+  Therefore the inversion formula gives
+  \[
+    \varphi(x) = \sum_{n = -\infty}^\infty \widehat{\varphi}(n) e^{2\pi i n x}
+  \]
+  pointwise. (In fact one can
+  get uniform convergence on compact
+  sets.)
+\end{proof}
+
+\begin{remark}
+  Formally consider
+  $\mu = \sum_{n = -\infty}^\infty \delta_n$,
+  where $\delta_n$ is the
+  Dirac delta at $n$. Then
+  \[
+    \langle f, \mu \rangle
+    = \int_{-\infty}^\infty f(x)\, d\mu(x)
+    = \sum_{n = -\infty}^\infty f(n).
+  \]
+  A similar computation shows that
+  \[
+    \langle \widehat{f}, \mu \rangle
+    = \sum_{n = -\infty}^\infty \widehat{f}(n).
+  \]
+  These series are equal by
+  Poisson summation, so
+  if the Parseval identity holds,
+  then one gets
+  \[
+    \langle f, \widecheck{\mu} \rangle
+    = \langle \widehat{f}, \mu \rangle
+    = \sum_{n = -\infty}^\infty \widehat{f}(n)
+    = \sum_{n = -\infty}^\infty f(n)
+    = \langle f, \mu \rangle.
+  \]
+  Thus Poisson summation says that
+  $\mu = \widecheck{\mu}$.
+\end{remark}
+
+\section{Wiener's Lemma}
+
+\begin{remark}
+  Let
+  $C(\T) = \{f \text{ continuous on } \T\}$,
+  which is closed under products and
+  \[
+    \|fg\|_\infty \le \|f\|_\infty \|g\|_\infty.
+  \]
+  In particular,
+  $C(\T)$ is a commutative
+  Banach algebra. Also note
+  that if $f \in C(\T)$ and
+  $f(x) \ne 0$ for every $x$, then
+  $1 / f \in C(\T)$. We say that
+  $C(\T)$ is \emph{inverse-closed}.
+
+  Recall that the Wiener (Fourier)
+  algebra is
+  \[
+    A(\T) = \{f \in L^1(\T) : \widehat{f} \in \ell^1(\Z)\}
+    = \{\widehat{c} : c = (c_n) \in \ell^1(\Z)\}.
+  \]
+  The equality holds by the
+  formulas $f(x) = \sum_{n = -\infty}^\infty \widehat{f}(n) e^{2\pi i n x}$
+  and $\widecheck{c}(x) = \sum_{n = -\infty}^\infty c_n e^{2\pi i n x}$.
+  Note that
+  $A(\T) \subseteq C(\T)$ is
+  dense in the uniform norm.
+
+  On the other hand, if we define
+  \[
+    \|f\|_{A(\T)}
+    = \sum_{n = -\infty}^\infty |\widehat{f}(n)|,
+  \]
+  then for any $f, g \in A(\T)$,
+  we have
+  \[
+    f g = (\widehat{fg})^\vee
+    = (\widehat{f} * \widehat{g})^\vee.
+  \]
+  Since $\widehat{f}, \widehat{g} \in \ell^1(\Z)$,
+  we have $\widehat{f} * \widehat{g} \in \ell^1(\Z)$,
+  so $fg \in A(\T)$. Moreover,
+  \[
+    \|fg\|_{A(\T)}
+    = \|\widehat{f} * \widehat{g}\|_1
+    \le \|\widehat{f}\|_1 \|\widehat{g}\|_1
+    = \|f\|_{A(\T)} \|g\|_{A(\T)}.
+  \]
+  Thus we see that
+  $A(\T)$ is also a commutative
+  Banach algebra
+  with respect to pointwise products.
+
+  If $A(\T)$ inverse-closed?
+  In other words, if $f \in A(\T)$
+  and $f(x) \ne 0$ for all $x$,
+  must $1 / f \in A(\T)$?
+\end{remark}
+
+\begin{lemma}\label{lem:poly-AT}
+  If $P(\xi) = \sum_{k = -N}^N a_k e^{2\pi i k \xi}$,
+  then
+  $\|P\|_{A(\T)} \le (2N + 1)^{1 / 2} \|P\|_\infty$.
+\end{lemma}
+
+\begin{proof}
+  By Cauchy-Schwarz, we have
+  \[
+    \|P\|_{A(\T)}
+    = \sum_{k = -N}^N |a_k| \cdot 1
+    \le (2N + 1)^{1 / 2}
+    \left(\sum_{k = -N}^N |a_k|^2\right)^{1 / 2}
+    = (2N + 1)^{1 / 2} \|P\|_2
+  \]
+  where the second equality
+  is by Plancherel's theorem.
+  The result follows since
+  $\|P\|_2 \le \|P\|_\infty$ on
+  $\T$.
+\end{proof}
+
+\pagebreak
+\begin{lemma}[Wiener's lemma]
+  If $g \in \ell^1(\Z)$ and
+  $\widehat{g}(\xi) \ne 0$ for any
+  $\xi$, then there is
+  $h \in \ell^1(\Z)$ such that
+  \[
+    \widehat{h}(\xi)
+    = \frac{1}{\widehat{g}(\xi)},
+    \quad \xi \in \T.
+  \]
+  Equivalently, if
+  $G \in A(\T)$ and
+  $G(\xi) \ne 0$ for any $\xi$, then
+  $1 / G \in A(\T)$.
+\end{lemma}
+
+\begin{proof}
+  Assume $g \in \ell^1(\Z)$ and
+  $\widehat{g}(\xi) \ne 0$ for any
+  $\xi$. Let $G = \widehat{g}$.
+  We prove the result in two steps:
+  \begin{enumerate}
+    \item Assume $0 \le G \le 1$.
+      Then since $G$ is nonzero,
+      \[
+        d = \inf_{\xi \in \T} G(\xi) > 0.
+      \]
+      Let $H = 1 - G = \widehat{\delta} - \widehat{g}$,
+      where $\delta$ is the
+      delta sequence. Note that
+      \[
+        \widehat{\delta}(\xi)
+        = \sum_{n = -\infty}^\infty \delta_n e^{2\pi i n \xi}
+        = \delta_0 e^{2\pi i 0 \xi}
+        = 1.
+      \]
+      Then $H = \widehat{h} - \widehat{g} = (\delta - g)^\wedge \in A(\T)$.
+      So if we let
+      $h = \delta - g \in \ell^1(\Z)$,
+      then
+      $\widehat{h} = H$, and
+      \[
+        \|H\|_\infty
+        = \|1 - G\|_\infty
+        = 1 - d < 1.
+      \]
+      Hence
+      $\sum_{n = 0}^\infty H(\xi)^n$
+      converges, and
+      $\sum_{n = 0}^\infty H^n = 1 / (1 - H(\xi)) = 1 / G(\xi) \in C(\T)$.
+
+      However, we need convergence
+      in $A(\T)$. Fix
+      $0 < \epsilon < d / 2$.
+      Let $p = h \chi_{[-N, N]}$ for
+      $N$ large enough so that
+      $\|p - h\|_1 < \epsilon$.
+      Let $P = \widehat{p} = \sum_{n = -N}^N h(n) e^{2\pi i n \xi}$.
+      Let $r = p - h$
+      and $R = P - H$. Then
+      \begin{align*}
+        \|P\|_\infty
+        &= \|H + R\|_\infty
+        \le \|H\|_\infty + \|R\|_\infty
+        \le (1 - d) + \|P - H\|_\infty \\
+        &\le (1 - d) + \|\widehat{p} - \widehat{h}\|_\infty
+        \le (1 - d) + \|p - h\|_1
+        = 1 - d + \epsilon.
+      \end{align*}
+      Now we can compute that
+      \[
+        \|H^n\|_{A(\T)}
+        = \|(P - R)^n\|_{A(\T)}
+        = \left\|
+        \sum_{j = 0}^n \binom{n}{j} P^{j} (-R)^{n - j}
+        \right\|_{A(\T)}
+      \]
+      where we can use the
+      binomial theorem since
+      $A(\T)$ is a commutative
+      Banach algebra. Then
+      \[
+        \|H^n\|_{A(\T)}
+        \le \sum_{j = 0}^n \binom{n}{j}
+        \|P\|_{A(\T)}^{j} \|R\|_{A(\T)}^{n - j}
+        \le \sum_{j = 0}^n \binom{n}{j}
+        (2Nj + 1)^{1 / 2}
+        \|P^j\|_\infty \epsilon^{n - j},
+      \]
+      where the second equality is
+      by Lemma \ref{lem:poly-AT}
+      and $\|R\|_{A(\T)} = \|p - h\|_1 < \epsilon$.
+      Thus
+      \[
+        \|H^n\|_{A(\T)}
+        \le (2Nn + 1)^{1 / 2}
+        \sum_{j = 1}^n \binom{n}{j}
+        \|P\|_\infty^j \epsilon^{n - j}
+        = (2Nn + 1)^{1 / 2}
+        (\|P\|_\infty + \epsilon)^n,
+      \]
+      where $\|P^j\|_\infty \le \|P\|_\infty^j$
+      by submultiplicativity. Since
+      $\|P\|_\infty \le 1 - d + \epsilon$,
+      \[
+        \|H^n\|_{A(\T)}
+        \le (2Nn + 1)^{1 / 2}
+        (1 - d + 2\epsilon)^n,
+      \]
+      where $1 - d + 2\epsilon < 1$.
+      So
+      $\sum_{n = 0}^\infty \|H^n\|_{A(\T)} < \infty$,
+      so $\sum_{n = 0}^\infty H^n$
+      converges in $A(\T)$ to
+      $1 / (1 - H) = 1 / G$.
+  \end{enumerate}
+  One can reduce the general case to
+  this first case, see the course
+  notes.
+\end{proof}
+
+\section{Distributions}
+
+\begin{remark}
+  Let $1 \le p < \infty$.
+  Note that
+  $L^p(\R)^* \cong L^{p'}(\R)$,
+  where $L^p(\R)^*$ is the dual
+  space of $L^p(\R)$, i.e. the
+  space of bounded linear functions
+  on $L^p(\R)$. If we fix
+  $g \in L^{p'}(\R)$, then we can define
+  \[
+    \mu_g(f)
+    = \langle f, g \rangle
+    = \int_{-\infty}^\infty f(x) \overline{g(x)} \, dx,
+  \]
+  which is linear in $f$ and
+  antilinear in $g$ (this is known
+  as a \emph{sesquilinear} form).
+
+  Recall that
+  $X^* = \{\text{bounded linear functionals $\mu$ on $X$}\}$,
+  which is equivalent to continuous
+  linear functionals when
+  $X$ is a Banach space.
+  We consider the following
+  space of distributions:
+\end{remark}
+
+\begin{definition}
+  Define the following:
+  \begin{itemize}
+    \item $\mathcal{D}'(\R) = C_c^\infty(\R)^*$,
+      the space of
+      \emph{distributions}.
+    \item $\mathcal{S}'(\R) = \mathcal{S}(\R)^*$,
+      the space of
+      \emph{tempered distributions}.
+    \item $\mathcal{E}'(\R) = C^\infty(\R)^*$,
+      the space of
+      \emph{compactly supported distributions}.
+  \end{itemize}
+\end{definition}
+
+\begin{example}
+  If $f \in C_c^\infty(\R)$,
+  then define
+  $\langle f, \delta \rangle = f(0)$.
+  This is the Dirac delta as
+  a distribution.
+\end{example}
+
+\begin{remark}
+  Recall that the Schwartz space is
+  \[
+    \mathcal{S}(\R)
+    = \{f \in C^\infty(\R) : x^m f^{(n)}(x) \in L^\infty(\R)\}.
+  \]
+  This is \emph{not} a Banach space
+  (it does not even have a norm).
+  But we can define seminorms
+  \[
+    \rho_{m, n}(f)
+    = \|x^m f^{(n)}\|_\infty, \quad
+    m, n \ge 0.
+  \]
+  There is no way to combine these
+  seminorms into a single norm.\footnote{Compare this with $C^1_b(\R) = \{f : \|f\|_\infty, \|f'\|_\infty < \infty\}$, where one can define a norm $\|f\|_{C^1_b} = \|f\|_\infty + \|f'\|_\infty$.}
+  However, one can define a metric:
+  \[
+    d(f, g)
+    = \sum_{m = 0}^\infty \sum_{n = 0}^\infty
+    2^{-m - n}
+    \frac{\rho_{m, n}(f - g)}{1 + \rho_{m, n}(f - g)}, \quad f, g \in \mathcal{S}(\R).
+  \]
+  Note that convergence with respect
+  to $d$ is the same as
+  convergence in $\rho_{m, n}$ for
+  every $m, n$:
+  \[
+    \lim_{k \to \infty}
+    \rho_{m, n}(f - f_k) = 0.
+  \]
+\end{remark}
+
+\begin{definition}
+  We say that $f_k \to f$ in
+  $\mathcal{S}(\R)$ if for every
+  $m, n \ge 0$,
+  \[
+    \rho_{m, n}(f - f_k) = \|x^m f^{(n)}(x) - x^m (f_k)^{(n)}(x)\|_\infty \longrightarrow 0
+  \]
+  Therefore, a linear functional
+  $\mu : \mathcal{S}(\R) \to \C$
+  is \emph{continuous} if
+  $f_k \to f$ in $\mathcal{S}(\R)$
+  implies $\langle f_k, \mu \rangle \to \langle f, \mu \rangle$.
+\end{definition}
+
+\begin{remark}
+  Since convergence in $\mathcal{S}(\R)$
+  is a very strong condition,
+  we expect that it is easy for
+  $\mu$ to satisfy the above
+  condition. This intuitively explains
+  why $\mathcal{S}'(\R)$ is so large.
+\end{remark}
+
+\begin{example}
+  Assume that
+  $f_k \to f$ in $\mathcal{S}(\R)$.
+  Then $\langle f_k, \delta \rangle = f_k(0)$, so
+  \[
+    |\langle f - f_k, \delta \rangle|
+    = |f(0) - f_k(0)|
+    \le \rho_{0, 0}(f - f_k)
+    \longrightarrow 0.
+  \]
+  Thus we see that $\delta \in \mathcal{S}'(\R) = \mathcal{S}(\R)^*$.
+\end{example}
