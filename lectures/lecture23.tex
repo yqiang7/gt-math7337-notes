@@ -1,0 +1,328 @@
+\chapter{Nov.~20 --- Distributions, Part 2}
+
+\section{Convergence with Families of Seminorms}
+
+\begin{example}
+  Like $\mathcal{S}(\R)$, many
+  other spaces are defined by a
+  family of seminorms. Recall that
+  \[
+    L^1_\mathrm{loc}(\R)
+    = \{
+      \text{measurable } f : f \text{ is integrable on compact } K \subseteq \R
+    \}.
+  \]
+  If we define $\rho_k(f) = \|f \chi_{K}\|_1$,
+  then $f \in L^1_\mathrm{loc}(\R)$
+  if and only if
+  $\rho_K(f) < \infty$. In fact,
+  it is enough to consider
+  $\rho_N(f) = \|f \chi_{[-N, N]}\|_1$.
+  Given such a countable family
+  of seminorms,
+  one can always define a metric
+  \[
+    d(f, g)
+    = \sum_{N=1}^\infty 2^{-N} \frac{\rho_N(f-g)}{1 + \rho_N(f-g)}
+  \]
+  which satisfies $d(f, f_k) \to 0$
+  if and only if $\rho_N(f - f_k) \to 0$
+  for every $N$.
+\end{example}
+
+\begin{remark}
+  Suppose $\|\cdot\|$ is a norm
+  on $L^1_\mathrm{loc}(\R)$, and
+  consider $\chi_{[k, k + 1]}$.
+  Then $\rho_N(\chi_{[k, k + 1]}) \to 0$, so
+  \[
+    c_k \chi_{[k, k + 1]} \longrightarrow 0
+  \]
+  in $L^1_\mathrm{loc}(\R)$
+  for every choice of
+  $c_k$. But then
+  $\|c_k \chi_{[k, k + 1]}\| \to 0$,
+  a contradiction for
+  $c_k = 1 / \|\chi_{[k, k + 1]}\|$.
+\end{remark}
+
+\begin{example}
+  For $C^\infty(\R)$, we can take
+  $\rho_{N, n}(f) = \|f^{(n)}\chi_{[-N, N]}\|_\infty$.
+  Then
+  \[
+    C^\infty(\R)^*
+    = \{
+      \text{continuous linear functionals }
+      \mu : C^\infty(\R) \to \C
+    \}
+    = \mathcal{E}'(\R)
+  \]
+  is the space of compactly
+  supported distributions, where
+  $\mu$ is continuous if whenever
+  $f_k \to f$ in $C^\infty(\R)$,
+  we have $\mu(f_k) = \langle \mu, f_k \rangle \to \langle \mu, f \rangle$.
+\end{example}
+
+\begin{remark}
+  For $\mathcal{D}'(\R) = C_c^\infty(\R)^*$,
+  it is better to think of
+  $C^\infty_c(\R) = \bigcup_{N=1}^\infty C_c^\infty([-N, N])$.
+\end{remark}
+
+\begin{definition}
+  Let $\{\rho_\alpha\}_{\alpha \in J}$
+  be a family of seminorms on a
+  vector space $X$.
+  \begin{enumerate}[(a)]
+    \item $f_k \to f$ in $X$ means
+      that $\rho_\alpha(f - f_k) \to 0$
+      for every $\alpha \in J$.
+    \item $X$ is \emph{Hausdorff}
+      if $\rho_\alpha(f) = 0$ for
+      every $f \in X$ if and only if
+      $f = 0$.
+  \end{enumerate}
+\end{definition}
+
+\begin{definition}
+  Let $\{\rho_n\}_{n \in \N}$ be a
+  countable, Hausdorff family
+  of seminorms on $X$.
+  If the metric
+  \[
+    d(f, g) = \sum_{n=1}^\infty 2^{-n} \frac{\rho_n(f-g)}{1 + \rho_n(f-g)}
+  \]
+  is complete, then we call
+  $X$ a \emph{Fr\'echet space}.
+\end{definition}
+
+\begin{exercise}
+  $\mathcal{S}(\R)$ and
+  $C^\infty(\R)$ are Fr\'echet spaces
+  (but $C_c^\infty(\R)$ is not).
+\end{exercise}
+
+\begin{remark}
+  Recall that if
+  $\mu : X \to \C$ is a linear
+  functional on a normed space $X$,
+  then $\mu$ is continuous if
+  and only if $\mu$ is bounded
+  (i.e. there exists $C > 0$ such that
+  $|\langle f, \mu \rangle| \le C \|f\|$
+  for every $f \in X$).
+\end{remark}
+
+\begin{theorem}
+  Let $X$ be a Fr\'echet space
+  with seminorms $\{\rho_n\}_{n \in \N}$
+  and $\mu : X \to \C$ a linear
+  functional. Then the following
+  are equivalent:
+  \begin{enumerate}
+    \item $\mu$ is continuous, i.e.
+      $f_k \to f$ implies
+      $\langle f_k, \mu \rangle \to \langle f, \mu \rangle$
+      as $k \to \infty$.
+    \item $f_k \to 0$ in $X$
+      implies $\langle f_k, \mu \rangle \to 0$.
+    \item There exists $C > 0$ 
+      and $N \in \N$ (depending
+      on $\mu$) such that
+      $|\langle f, \mu \rangle| \le C \sum_{n=1}^N \rho_n(f)$.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  $(1 \Leftrightarrow 2)$
+  This follows from linearity.
+
+  $(3 \Rightarrow 2)$ Suppose
+  $f_k \to 0$, so
+  $\rho_n(f_k) \to 0$ for every $n$. So
+  \[
+    |\langle f_k, \mu \rangle|
+    \le C \sum_{n = 1}^N \rho_n(f_k)
+    \xrightarrow[k \to \infty]{} 0,
+  \]
+  since
+  each of the finitely many terms
+  converge to $0$.
+
+  $(2 \Rightarrow 3)$ We prove the
+  contrapositive. Suppose (3) is
+  false. So for every $C = N = k \in \N$,
+  there exists $f_k \in X$ for which
+  $|\langle f_k, \mu \rangle| > k \sum_{n = 1}^k \rho_n(f_k)$.
+  Set $\varphi_k = f_k / |\langle f_k, \mu \rangle|$.
+  Then
+  \[
+    \sum_{n = 1}^k \rho_n(\varphi_k)
+    = \frac{1}{|\langle f_k, \mu \rangle|}
+    \sum_{n = 1}^k \rho_n(f_k)
+    < \frac{1}{|\langle f_k, \mu \rangle|} \cdot \frac{|\langle f_k, \mu \rangle|}{k}
+    = \frac{1}{k}
+    \xrightarrow[k \to \infty]{} 0.
+  \]
+  Thus $\rho_n(\varphi_k) \to 0$ as
+  $k \to \infty$ for every $n \in \N$.
+  So $\varphi_k \to 0$ in $X$.
+  But $\langle \varphi_k, \mu \rangle = 1 \not\to 0$.
+\end{proof}
+
+\begin{example}
+  What does the topology look like
+  given a family of seminorms, i.e.
+  what are the open sets?
+  Consider seminorms
+  $\rho_1(x_1, x_2) = |x_1|$ and
+  $\rho_2(x_1, x_2) = |x_2|$. Consider
+  strips
+  \[
+    B^i_r(x_1, x_2)
+    = \{(y_1, y_2) :
+    |y_i - x_i| < r\}
+  \]
+  for each seminorm $\rho_i$.
+  Then the open balls are of the form
+  \[
+    B^1_r(x_1, x_2)
+    \cap B^2_r(x_1, x_2).
+  \]
+  A basis in the general case
+  involves intersections of
+  finitely many strips (as in the
+  product topology).
+\end{example}
+
+\section{Distributional Derivatives}
+
+\begin{example}
+  If $f, g$ are differentiable and
+  decay at $\infty$ (think
+  $f, g \in \mathcal{S}(\R)$), then
+  \[
+    \langle f, g' \rangle
+    = \int_{-\infty}^\infty f(x) \overline{g'(x)} \, dx
+    = \left.f(x) g(x)\right|_{x = -\infty}^\infty
+    - \int_{-\infty}^\infty f'(x) \overline{g(x)} \, dx
+    = -\langle f', g \rangle,
+  \]
+  by integration by parts, where
+  $\left. f(x) g(x)\right|_{x = -\infty}^\infty = 0$ by the
+    decay of $f, g$.
+  Now define
+  $\delta' : \mathcal{S}(\R) \to \C$ by
+  \[
+    \langle f, \delta' \rangle
+    := - \langle f', \delta \rangle
+    = - f'(0).
+  \]
+  for $f \in \mathcal{S}(\R)$. Then
+  $\delta'$ is a linear functional,
+  and
+  \[
+    |\langle f, \delta' \rangle|
+    = |{-f'(0)}|
+    \le \|f'\|_\infty
+    = \|x^0 f^{(1)}(x)\|_\infty
+    = \rho_{0, 1}(f)
+    \le 1 \sum_{m = 0}^0 \sum_{n = 0}^1 \rho_{m, n}(f).
+  \]
+  Hence $\delta'$ is bounded on
+  $\mathcal{S}(\R)$, so
+  $\delta' \in \mathcal{S}'(\R) = \mathcal{S}(\R)^*$.
+\end{example}
+
+\begin{prop}
+  Fix $\mu \in \mathcal{S}'(\R)$, and
+  define $\mu' : \mathcal{S}(\R) \to \C$
+  by
+  \[
+    \langle f, \mu' \rangle
+    = -\langle f', \mu \rangle, \quad f \in \mathcal{S}(\R).
+  \]
+  Then $\mu' \in \mathcal{S}'(\R)$.
+  In particular, every
+  tempered distribution has a
+  (distributional) derivative.
+\end{prop}
+
+\begin{proof}
+  Since $\mu$ is bounded,
+  there are $C, N > 0$ such that
+  $|\langle f, \mu \rangle| \le C \sum_{m = 0}^M \sum_{n = 0}^N \rho_{m, n}(f)$.
+  Then
+  \[
+    |\langle f, \mu' \rangle|
+    = |\langle f', \mu \rangle|
+    \le C \sum_{m = 0}^M \sum_{n = 0}^N \rho_{m, n}(f')
+    = C \sum_{m = 0}^M \sum_{n = 0}^N
+    \|x^m (f')^{(n)}\|_\infty \\
+    = C \sum_{m = 0}^M \sum_{n = 0}^N
+    \|x^m f^{n + 1}\|_\infty,
+  \]
+  so $\mu'$ is bounded. Thus $\mu' \in \mathcal{S}'(\R)$ also.
+\end{proof}
+
+\begin{example}
+  Consider the Heaviside
+  function $H = \chi_{[0, \infty)}$
+  We can define
+  \[
+    \langle f, H \rangle
+    = \int_{-\infty}^\infty f(x) \overline{H(x)} \, dx
+    = \int_0^\infty f(x) \, dx.
+  \]
+  Then we can check that
+  \begin{align*}
+    |\langle f, H \rangle|
+    &\le \int_0^\infty |f(x)|\, dx
+    \le \int_0^1 |f(x)|\, dx
+    + \int_1^\infty \frac{|f(x)|}{x^2} x^2 \, dx \\
+    &\le \|f\|_\infty
+    + \|x^2 f(x)\|_\infty \int_1^\infty \frac{1}{x^2} \, dx
+    \le C \sum_{m = 0}^2 \sum_{n = 0}^0
+    \|x^m f^{(n)}\|_\infty.
+  \end{align*}
+  Thus $H$ is bounded, so
+  $H \in \mathcal{S}'(\R)$. 
+  So $H$ has a distributional
+  derivative $H' : \mathcal{S}(\R) \to \C$,
+  where
+  \[
+    \langle f, H' \rangle
+    := - \langle f', H \rangle
+    = -\int_0^\infty f'(x)\, dx
+    = -(f(\infty) - f(0))
+    = f(0) = \langle f, \delta \rangle.
+  \]
+  In particular, we see that
+  $H' = \delta$ as tempered
+  distributions.
+\end{example}
+
+\begin{remark}
+  Note that
+  $L^1_\mathrm{loc}(\R) \subseteq \mathcal{D}'(\R) = C_c^\infty(\R)^*$
+  and $L^1_\mathrm{loc}(\R) + \text{polynomial growth} \subseteq \mathcal{S}'(\R)$,
+  so each of the functions
+  in the latter
+  has distributional derivatives.
+\end{remark}
+
+\begin{exercise}
+  If $g$ is smooth, then
+  $g'$ (as a tempered distribution)
+  is the usual derivative.
+\end{exercise}
+
+\begin{remark}
+  To avoid confusion, we sometimes
+  write $D\mu$ for the
+  distributional derivative
+  and $g'$ for the pointwise a.e.
+  derivative.
+\end{remark}
