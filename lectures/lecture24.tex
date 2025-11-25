@@ -1,0 +1,338 @@
+\chapter{Nov.~25 --- Distributions, Part 3}
+
+\section{Space of Distributions}
+
+\begin{remark}
+  Let $\mathcal{D}'(\R) = C^\infty_c(\R)^*$.
+  The topology on this
+  space is \emph{not} given by a
+  family of seminorms. Instead, we
+  write $C^\infty_c(\R) = \bigcup_{K \text{ compact}} C^\infty(K)$.
+  Note that $C^\infty(K)$ is a Fr\'echet space with seminorms
+  \[
+    \rho_{K, n}(f)
+    = \|f^{(n)}(x) \chi_K(x)\|_\infty
+  \]
+  for $f \in C^\infty(K) = \{f \in C^\infty(\R) : \supp(f) \subseteq K\}$.
+\end{remark}
+
+\begin{theorem}
+  $f_k \to f$ in $C^\infty_c(\R)$ if and
+  only if there exists a compact set
+  $K \subseteq \R$ such that
+  $f_k \in C^\infty(K)$ and
+  $f_k \to f$ in $C^\infty(K)$.
+\end{theorem}
+
+\begin{theorem}\label{thm:distribution-continuity}
+  Given a linear function
+  $\mu : C^\infty_c(\R) \to \C$,
+  the following are equivalent:
+  \begin{enumerate}
+    \item $\mu$ is continuous;
+    \item $\mu|_{C^\infty(K)}$ is
+      continuous for each compact $K$;
+    \item for all compact $K \subseteq \R$,
+      there exists $C_K \ge 0$, $N_K \ge 0$
+      such that
+      \[
+        |\langle f, \mu \rangle|
+        \le C_K \sum_{n = 0}^{N_K}
+        \|f^{(n)}(x) \chi_K(x)\|_\infty,
+        \quad \text{for } f \in C^\infty(K).
+      \]
+  \end{enumerate}
+\end{theorem}
+
+\begin{definition}
+  If there exists a single $N$ that
+  can be used for each compact set $K$ in
+  Theorem \ref{thm:distribution-continuity}(3),
+  then we say that $\mu$ has
+  \emph{finite order}. The \emph{order} of
+  $\mu$ is the smallest such $N$.
+\end{definition}
+
+\begin{example}
+  We have the following:
+  \begin{enumerate}
+    \item The order of $\delta^{(j)}$ is $j$.
+    \item Consider the $\delta$-train
+      $\mu = \sum_{n = - \infty}^\infty \delta_n$,
+      so $\langle f, \mu \rangle = \sum_{n = -\infty}^\infty f(n)$.
+      Note that this sum is finite since
+      $f \in C^\infty(K)$ for some
+      compact $K$. In fact,
+      $|\langle f, \mu \rangle| \le C_K \|f\|_\infty$,
+      so the order is $0$.
+    \item Let
+      $\nu = \sum_{n = 1}^\infty \delta_n^{(n)}$,
+      so $\langle f, \nu \rangle = \sum_{n = 1}^\infty (-1)^n f^{(n)}(n)$.
+      One can check that $\nu$ has
+      infinite order.
+  \end{enumerate}
+\end{example}
+
+\begin{remark}
+  As sets, we have
+  $C^\infty_c(\R) \subseteq \mathcal{S}(\R) \subseteq C^\infty(\R)$.
+  What about their duals?
+\end{remark}
+
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item $f_k \to f$ in $C^\infty_c(\R)$
+      implies $f_k \to f$ in $\mathcal{S}(\R)$.
+    \item $f_k \to f$ in $\mathcal{S}(\R)$
+      implies $f_k \to f$ in $C^\infty(\R)$.
+    \item $\mu \in \mathcal{S}'(\R)$
+      implies $\mu|_{C^\infty_c(\R)} \in \mathcal{D}'(\R)$.
+    \item $\mu \in \mathcal{E}'(\R)$
+      implies $\mu|_{\mathcal{S}(\R)} \in \mathcal{S}'(\R)$.
+  \end{enumerate}
+  In particular, we have the
+  containments
+  $\mathcal{D}'(\R) \supseteq \mathcal{S}'(\R) \supseteq \mathcal{E}'(\R)$.
+\end{theorem}
+
+\section{Functions as Distributions}
+
+\begin{theorem}
+  $L^1_{\loc}(\R) \subseteq \mathcal{D}'(\R)$,
+  where the embedding is given by
+  \[
+    \langle f, g \rangle
+    = \int_{-\infty}^\infty f(x) \overline{g(x)} \, dx, \quad
+    f \in C^\infty_c(\R).
+  \]
+\end{theorem}
+
+\begin{proof}
+  If $g \in L^1_{\loc}(\R)$
+  and $f \in C^\infty(K)$, then
+  \[
+    \langle f, g \rangle
+    \le \int_K |f(x) g(x)|\, dx
+    \le \|f\|_\infty \|g \chi_K\|_{1}.
+  \]
+  Thus we see that $g$ defines a
+  continuous linear functional on
+  $C^\infty_c(\R)$.
+\end{proof}
+
+\begin{example}
+  Note that $\delta \in \mathcal{D}'(\R)$,
+  but it cannot be identified with a
+  function in $L^1_{\loc}(\R)$.
+\end{example}
+
+\begin{example}
+  Consider the space
+  \begin{align*}
+    M_b(\R)
+    &= \{\text{bounded Radon measures on $\R$}\} \\
+    &= \{\text{bounded locally finite Borel measures on $\R$}\}.
+  \end{align*}
+  If $\mu \in M_b(\R)$ and $f \in C^\infty(K)$,
+  then we can define a linear functional by
+  \[
+    \langle f, \mu \rangle
+    = \int f(x) \, d\mu(x).
+  \]
+  Then we have that
+  \[
+    |\langle f, \mu \rangle|
+    \le \int_K |f(x)| \, d|\mu|(x)
+    \le \|f\|_\infty |\mu|(K),
+  \]
+  which is finite as
+  $\mu$ is a bounded Radon measure.
+\end{example}
+
+\begin{example}
+  We have
+  $1 / x \notin L^1_{\loc}(\R)$, but we
+  can define
+  $\pv(1 / x) : C^\infty_c(\R) \to \C$ by
+  \[
+    \langle f, \pv(1 / x) \rangle
+    = \lim_{T \to \infty}\int_{1 / T \le |x| \le T} \frac{f(x)}{x}\, dx, \quad
+    f \in C^\infty(K).
+  \]
+  One can show that the above limit
+  exists, so $\pv(1 / x) \in \mathcal{D}'(\R)$.
+\end{example}
+
+\section{Operations on Distributions}
+
+\begin{remark}
+  Suppose $g \in L^1_{\loc}(\R)$, and set
+  $T_a g(x) = g(x - a)$. If
+  $f \in C^\infty_c(\R)$, then
+  \[
+    \langle f, T_a g \rangle
+    = \int_{-\infty}^\infty f(x) \overline{g(x - a)} \, dx
+    = \int_{-\infty}^\infty f(x + a) \overline{g(x)} \, dx
+    = \langle T_{-a} f, g \rangle.
+  \]
+\end{remark}
+
+\begin{definition}
+  If $\mu \in \mathcal{D}'(\R)$, then
+  define $T_a \mu : C^\infty_c(\R) \to \C$ by
+  $\langle f, T_a \mu \rangle := \langle T_{-a} f, \mu \rangle$
+  for $f \in C^\infty_c(\R)$.
+\end{definition}
+
+\begin{remark}
+  Note that for $f \in C^\infty(K)$, we have
+  \[
+    |\langle f, T_a \mu \rangle|
+    = |\langle T_{-a} f, \mu \rangle|
+    \le C_{K + a} \sum_{n = 0}^{N_{K + a}} \|T_{-a} f\|_\infty
+    \le C_{K + a} \sum_{n = 0}^{N_{K + a}} \|f\|_\infty
+  \]
+  since $T_{-a} f \in C^\infty(K + a)$.
+  Thus $T_a \mu$ is a continuous
+  linear functional on $C^\infty_c(\R)$,
+\end{remark}
+
+\begin{remark}
+  One can similarly define other operations
+  on distributions, e.g.
+  dilation, modulation, etc.
+  For example, the \emph{involution}
+  $\widetilde{g}(x) = \overline{g(-x)}$
+  satisfies
+  \[
+    \langle f, \widetilde{g} \rangle
+    = \int f(x) \overline{\overline{g(-x)}} \, dx
+    = \overline{\int \overline{f(x)} \overline{g(-x)} \, dx}
+    = \overline{\int \overline{f(-x)} \overline{g(x)} \, dx}
+    = \overline{\int \widetilde{f}(x) \overline{g(x)} \, dx}
+    = \overline{\langle \widetilde{f}, g \rangle}.
+  \]
+  Thus if $\mu \in \mathcal{D}'(\R)$,
+  then we can define
+  $\langle f, \widetilde{\mu} \rangle := \overline{\langle \widetilde{f}, \mu \rangle}$
+  for $f \in C^\infty_c(\R)$.
+\end{remark}
+
+\begin{example}
+  Consider a translation of $\delta$:
+  \[
+    \langle f, T_a \delta \rangle
+    := \langle T_{-a} f, \delta \rangle
+    = T_{-a} f(0)
+    = f(a).
+  \]
+  But sometimes by abuse of
+  notation we may write
+  \[
+    \langle f, T_a\delta \rangle
+    = \int f(x) \delta(x - a)\, dx
+    = \int f(x + a) \delta(x)\, dx
+    = f(a).
+  \]
+  This should be understood in the
+  distributional sense, the
+  above integral is \emph{not} a Lebesgue integral.
+\end{example}
+
+\section{Products and Convolution of Distributions}
+
+\begin{remark}
+  Suppose $g \in L^1_{\loc}(\R)$,
+  $\theta \in C^\infty(\R)$. Then
+  \[
+    \langle f, \theta g \rangle
+    = \int f(x) \overline{\theta(x) g(x)} \, dx
+    = \int (f(x) \overline{\theta(x)}) \overline{g(x)} \, dx
+    = \langle f \overline{\theta}, g \rangle,
+    \quad f \in C^\infty_c(\R).
+  \]
+  Note that $f\overline{\theta} \in C^\infty_c(\R)$,
+  so the above definition makes sense.
+\end{remark}
+
+\begin{definition}
+  If $\mu \in \mathcal{D}'(\R)$
+  and $\theta \in C^\infty(\R)$,
+  then define $\theta \mu : C^\infty_c(\R) \to \C$ by
+  $\langle f, \theta \mu \rangle
+    := \langle f \overline{\theta}, \mu \rangle$.
+\end{definition}
+
+\begin{remark}
+  We can check that for $f \in C^\infty(K)$
+  (so $f \overline{\theta} \in C^\infty(K)$),
+  \begin{align*}
+    |\langle f, \theta \mu \rangle|
+    = |\langle f \overline{\theta}, \mu \rangle|
+    \le C_K \sum_{n = 0}^{N_K}
+    \|(f \overline{\theta})^{(n)}\|_\infty
+    &\le C_K \sum_{n = 0}^{N_K}
+    \sum_{j = 0}^n \binom{n}{j} \|f^{(j)} \overline{\theta^{(n - j)}}\|_\infty \\
+    &= C_K \sum_{n = 0}^{N_K} \sum_{j = 0}^n \binom{n}{j} \|\theta^{(n - j)}\|_\infty \|f^{(j)}\|_\infty.
+  \end{align*}
+  Thus we see that
+  $\theta \mu \in \mathcal{D}'(\R)$.
+\end{remark}
+
+\begin{remark}
+  Now consider $g \in L^1_{\loc}(\R)$,
+  $f \in C^\infty_c(\R)$. Then we have
+  \[
+    (f * g)(x)
+    = \int f(x - y) g(y) \, dy
+    = \int \overline{\widetilde{f}(y - x)} g(y) \, dy
+    = \overline{\langle T_x \widetilde{f}, g \rangle}.
+  \]
+\end{remark}
+
+\begin{definition}
+  The \emph{convolution} of
+  $\mu \in \mathcal{D}'(\R)$
+  with $f \in C^\infty_c(\R)$ is
+  \[
+    (f * \mu)(x)
+    := \overline{\langle T_x \widetilde{f}, \mu \rangle}, \quad
+    x \in \R.
+  \]
+\end{definition}
+
+\begin{theorem}
+  If $\mu \in \mathcal{D}'(\R)$
+  and $f \in C^\infty_c(\R)$,
+  then:
+  \begin{enumerate}
+    \item Convolution commutes with
+      translation, i.e.
+      $T_a(f * \mu) = (T_a f) * \mu = f * (T_a \mu)$.
+    \item $f * \mu \in C^\infty(\R)$
+      and $(f * \mu)' = f' * \mu$
+      (and also $(f * \mu)' = f * D\mu$).
+  \end{enumerate}
+\end{theorem}
+
+\begin{remark}
+  Suppose $f, g, h$ are ``nice'' functions.
+  Then
+  \begin{align*}
+    \langle f, g * h \rangle
+    &= \int f(x) \overline{(g * h)(x)}\, dx
+    = \iint f(x) \overline{g(x - y)} \overline{h(y)}\, dy dx \\
+    &= \iint \left(f(x) \widetilde{g}(y - x) \, dx\right)
+    \overline{h(y)}\, dy
+    = \int (f * \widetilde{g})(y) \overline{h(y)}\, dy
+    = \langle f * \widetilde{g}, h \rangle.
+  \end{align*}
+\end{remark}
+
+\begin{theorem}
+  If $\mu \in \mathcal{D}'(\R)$
+  and $f, g \in C^\infty_c(\R)$, then
+  $\langle f, g * \mu \rangle
+    = \langle f * \widetilde{g}, \mu \rangle$.
+\end{theorem}
