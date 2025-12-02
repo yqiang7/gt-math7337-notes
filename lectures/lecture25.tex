@@ -1,0 +1,307 @@
+\chapter{Dec.~2 --- Distributions, Part 4}
+
+\section{More on Convolutions of Distributions}
+
+\begin{remark}
+  Recall that if $\nu \in \mathcal{D}'(\R)$
+  and $f, g \in C^\infty_c(\R)$, then we
+  define
+  \[
+    \langle f, g * \nu \rangle
+    := \langle f * \widetilde{g}, \nu \rangle.
+  \]
+  We want to make a similar
+  definition for $\mu, \nu \in \mathcal{D}'(\R)$:
+  \[
+    \langle f, \mu * \nu \rangle
+    := \langle f * \widetilde{\mu}, \nu \rangle,
+    \quad f \in C^\infty_c(\R).
+  \]
+  Note that we only know
+  $f * \mu \in C^\infty(\R)$,
+  not necessarily $C^\infty_c(\R)$. We know
+  \[
+    \supp(\mu)
+    = \bigcap \{\text{closed sets $F \subseteq \R$} : \text{$\mu = 0$ off $F$}\}.
+  \]
+\end{remark}
+
+\begin{theorem}
+  $\mathcal{E}'(\R) = C^\infty(\R)^* = \{\mu \in \mathcal{D}'(\R) : \mu \text{ is compactly supported}\}$.
+\end{theorem}
+
+\begin{definition}
+  If $\mu, \nu \in \mathcal{D}'(\R)$
+  and at least one is compactly supported,
+  then we can define
+  \[
+    \langle f, \mu * \nu \rangle
+    := \langle f * \widetilde{\mu}, \nu \rangle,
+    \quad f \in C^\infty_c(\R).
+  \]
+\end{definition}
+
+\begin{exercise}
+  Show that if at least
+  one of $\nu$ or $\mu$  is compactly
+  supported, then
+  \[
+    f * (\mu * v) = (f * \mu) * \nu,
+    \quad f \in C^\infty_c(\R).
+  \]
+\end{exercise}
+
+\begin{exercise}
+  Show that
+  $(H * \delta') * 1 \ne H * (\delta' * 1)$,
+  where $H$ is the Heaviside function,
+  $\delta$ is the Dirac delta, and
+  $1$ is the constant function.
+\end{exercise}
+
+\section{More on Distributional Derivatives}
+
+\begin{lemma}
+  Let $g \in C(\R)$ such that
+  $Dg \in C(\R)$. Then
+  $g \in C^1(\R)$ and
+  $Dg = g'$.
+\end{lemma}
+
+\begin{proof}
+  We give the idea of the proof. Let
+  $h \in \R$ and suppose
+  $f \in C^\infty_c(\R)$. Then
+  \[
+    \int_0^h (\widetilde{f} * g)'(t)\, dt
+    = (\widetilde{f} * g)(h)
+    - (\widetilde{f} * g)(0)
+  \]
+  by the fundamental theorem of calculus.
+  Check as an exercise that
+  $(\widetilde{f} * g)'(t) = (\widetilde{f} * Dg)(t)$, then
+  \[
+    \int \overline{f(x)} g(x)\, dx
+    = \overline{\langle f, g \rangle}
+    = (\widetilde{f} * g)(h)
+    - \int_0^h (\widetilde{f} * Dg)(t)\, dt.
+  \]
+  One can continue to show that
+  $Dg$ and $g'$ agree.
+\end{proof}
+
+\pagebreak
+
+\begin{exercise}
+  Show that if
+  $\mu \in \mathcal{D}'(\R)$ and
+  $f \in C^\infty_c(\R)$, then
+  \[
+    \overline{\langle f, \mu \rangle}
+    = (\widetilde{f} * \mu)(t)
+    - \int_0^h (\widetilde{f} * D\mu)(t)\, dt.
+  \]
+\end{exercise}
+
+\begin{theorem}
+  If $\mu \in \mathcal{D}'(\R)$, then
+  $D\mu \in C(\R)$ (i.e. there exists
+  $g \in C(\R)$ such that
+  $\langle f, g \rangle = \langle f, D\mu \rangle = -\langle f', \mu \rangle$)
+  if and only if $\mu \in C^1(\R)$.
+\end{theorem}
+
+\begin{theorem}\label{thm:distribution_derivative_continuous}
+  Fix $\mu \in \mathcal{D}'(\R)$. Then
+  for each compact $K \subseteq \R$,
+  there exists $g \in C(\R)$ and
+  $k \ge 0$ such that
+  $\langle f, \mu \rangle = \langle f, D^k g \rangle$
+  for all $f \in C^\infty(K)$.
+\end{theorem}
+
+\begin{remark}
+  Theorem \ref{thm:distribution_derivative_continuous}
+  says that in some sense,
+  distributions are exactly
+  the derivatives of functions.
+\end{remark}
+
+\section{Distributional Fourier Transform}
+
+\begin{remark}
+  Recall that the Fourier transform
+  is unitary on $L^2(\R)$, i.e.
+  \[
+    \langle f, g \rangle
+    = \int_{-\infty}^\infty f(x) \overline{g(x)}\, dx
+    = \int_{-\infty}^\infty \widehat{f}(\xi) \overline{\widehat{g}(\xi)}\, d\xi
+    = \langle \widehat{f}, \widehat{g} \rangle.
+  \]
+  Also recall that if
+  $f \in \mathcal{S}(\R)$, then
+  $\widehat{f} \in \mathcal{S}(\R)$ also
+  (this is not the case
+  with $C^\infty_c(\R)$).
+\end{remark}
+
+\begin{definition}
+  The \emph{Fourier transform} of a
+  tempered distribution
+  $\mu \in \mathcal{S}'(\R)$ is
+  implicitly defined by
+  \[
+    \langle \widehat{f}, \widehat{\mu} \rangle
+    := \langle f, \mu \rangle,
+    \quad f \in \mathcal{S}(\R).
+  \]
+  This defines $\widehat{\mu}$
+  on all of $\mathcal{S}(\R)$ since
+  $\widehat{f}$ can be any element
+  of $\mathcal{S}(\R)$. More explicitly,
+  \[
+    \langle f, \widehat{\mu} \rangle
+    = \langle \widecheck{f}, \mu \rangle,
+    \quad f \in \mathcal{S}(\R).
+  \]
+\end{definition}
+
+\begin{lemma}
+  If $\mu \in \mathcal{S}'(\R)$, then
+  $\widehat{\mu} \in \mathcal{S}'(\R)$.
+\end{lemma}
+
+\begin{proof}
+  Since $\mu \in \mathcal{S}'(\R)$, there
+  exist $C, M, N \ge 0$ such that
+  \[
+    |\langle f, \mu \rangle|
+    \le C \sum_{m = 0}^M \sum_{n = 0}^N
+    \|x^m f^{(n)}\|_\infty.
+  \]
+  Then we can compute
+  \[
+    |\langle f, \widehat{\mu} \rangle|
+    = |\langle \widecheck{f}, \mu \rangle|
+    \le C \sum_{m = 0}^M \sum_{n = 0}^N
+    \|x^m \widecheck{f}^{(n)}\|_\infty.
+  \]
+  For $m = n = 0$, we have
+  $\|\widecheck{f}\|_\infty \le \|f\|_1 \le C'(\|f\|_\infty + \|x^2 f(x)\|_\infty)$
+  (split into $|x| \le 1$ and $|x| > 1$).
+  We can apply a similar argument to the
+  other $m, n$ to bound the
+  remaining terms.
+\end{proof}
+
+\begin{example}
+  We compute $\widehat{\delta}$.
+  Let $f \in \mathcal{S}(\R)$. Then
+  \[
+    \langle \widehat{f}, \widehat{\delta} \rangle
+    = \langle f, \delta \rangle
+    = f(0)
+    = (\widehat{f})^\vee(0)
+    = \int_{-\infty}^\infty \widehat{f}(\xi)\, d\xi
+    = \langle \widehat{f}, 1 \rangle.
+  \]
+  This is true for every $f \in \mathcal{S}(\R)$,
+  hence $\widehat{\delta} = 1$.
+\end{example}
+
+\begin{example}
+  We compute $\widehat{1}$.
+  For $f \in \mathcal{S}(\R)$, we have
+  \[
+    \langle \widehat{f}, \widehat{1} \rangle
+    = \langle f, 1 \rangle
+    = \int f(x)\, dx
+    = \widehat{f}(0)
+    = \langle \widehat{f}, \delta \rangle.
+  \]
+  Thus we see that
+  $\widehat{1} = \delta$.
+\end{example}
+
+\begin{example}
+  Formally, we can write
+  \[
+    \widehat{\delta}(\xi)
+    = \int_{-\infty}^\infty \delta(x)
+    e^{-2\pi i \xi x}\, dx
+    = \int_{-\infty}^\infty e^{-2\pi i \xi x}\, d\delta(x)
+    = e^{-2\pi i \xi \cdot 0}
+    = 1.
+  \]
+  This somewhat makes sense, with some
+  hand-waving.
+  On the other hand
+  \[
+    \widehat{1}(\xi)
+    = \int_{-\infty}^\infty 1 \cdot e^{-2\pi i \xi x}\, dx
+    = \delta(\xi)
+  \]
+  does not really make sense at all.
+\end{example}
+
+\begin{exercise}
+  Show that $\mu \mapsto \widehat{\mu}$
+  is a continuous
+  bijection $\mathcal{S}'(\R) \to \mathcal{S}'(\R)$.
+\end{exercise}
+
+\begin{exercise}
+  Show that
+  if $1 \le p \le 2$ and
+  $f \in L^p(\R)$, then the
+  usual Fourier transform agrees
+  with the distributional Fourier transform
+  (if we interpret the usual
+  $\widehat{f} \in L^{p'}(\R) \subseteq \mathcal{S}'(\R)$).
+\end{exercise}
+
+\begin{remark}
+  If $2 < p \le \infty$, then we still have
+  $L^{p}(\R) \subseteq \mathcal{S}'(\R)$,
+  so every $f \in L^p(\R)$ has a
+  distributional Fourier transform
+  $\widehat{f} \in \mathcal{S}'(\R)$, but
+  in general it cannot be identified with
+  a function.
+\end{remark}
+
+\begin{remark}
+  $\mathcal{F} L^\infty(\R)$ is called
+  the space of \emph{pseudo-measures}.
+\end{remark}
+
+\begin{exercise}
+  Show that if $\mu \in \mathcal{S}'(\R)$
+  and $\theta \in \mathcal{S}(\R)$, then
+  \[
+    (\theta \mu)^\wedge
+    = \widehat{\theta} * \widehat{\mu}
+    \quad \text{and} \quad
+    (\theta * \mu)^\wedge
+    = \widehat{\theta} \widehat{\mu}.
+  \]
+  Moreover, $(D\mu)^\wedge = 2\pi i \xi \widehat{\mu}$
+  and $D\widehat{\mu} = (-2\pi i x \mu)^\wedge$.
+\end{exercise}
+
+\begin{theorem}
+  $(\sum_{n = -\infty}^\infty \delta_n)^\wedge = \sum_{n = -\infty}^\infty \delta_n$.
+\end{theorem}
+
+\begin{proof}
+  We can compute that
+  \[
+    \left\langle \widehat{f}, \Big(\sum_{n = -\infty}^\infty \delta_n\Big)^\wedge \right\rangle
+    = \left\langle f, \sum_{n = -\infty}^\infty \delta_n \right\rangle
+    = \sum_{n = -\infty}^\infty f(n)
+    = \sum_{k = -\infty}^\infty \widehat{f}(k)
+    = \left\langle \widehat{f}, \sum_{n = -\infty}^\infty \delta_n \right\rangle,
+  \]
+  where we used the Poisson summation
+  formula in the third equality.
+\end{proof}
