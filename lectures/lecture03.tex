@@ -83,10 +83,10 @@
   \]
 \end{remark}
 
-\begin{theorem}
+\begin{theorem}\label{thm:convolution-l-infty}
   For $1 \le p \le \infty$, if
   $f \in L^p(\R)$ and
-  $g \in L^1(\R)$, then
+  $g \in L^{p'}(\R)$, then
   $f * g \in L^\infty(\R)$.
 \end{theorem}
 
@@ -100,8 +100,9 @@
   so $(f * g)(x)$ exists for every $x \in \R$.
 \end{proof}
 
-\begin{exercise}
-  Show that $f * g \in C_b(\R) = \{h : \R \to \C : h \text{ is continuous and bounded}\}$.
+\begin{exercise}\label{ex:conv-cont-bounded}
+  In the above,
+  show that $f * g \in C_b(\R) = \{h : \R \to \C : h \text{ is continuous and bounded}\}$.
 \end{exercise}
 
 \begin{remark}

@@ -1,1 +1,210 @@
 \chapter{Aug.~28 --- Convolution, Part 2}
+
+\section{More Properties of Convolution}
+
+\begin{exercise}
+  Let $f, g \in L^1(\R)$, and denote
+  $\widetilde{f}(x) = \overline{f(-x)}$.
+  Showing the following:
+  \begin{enumerate}
+    \item (Commutativity with translation)
+      $f * (T_a g) = (T_a f) * g = T_a (f * g)$.
+    \item (Behavior under involution)
+      $(f * g)^\sim = \widetilde{f} * \widetilde{g}$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+  For $f, g : \R \to \C$, one can check that
+  $f * g = 0$ outside
+  \[
+    \supp(f) + \supp(g)
+    = \{x + y : x \in \supp(f), y \in \supp(g)\}.
+  \]
+  In particular, if $f, g \in C_c(\R)$, then
+  $f * g \in C_c(\R)$ also.
+\end{remark}
+
+\section{Convolution and Smoothing}
+
+\begin{theorem}\label{thm:conv-decay-at-infty}
+  If $f \in L^1(\R)$ and $g \in C_0(\R)$, then
+  $f * g \in C_0(\R)$.
+\end{theorem}
+
+\begin{proof}
+  Since $C_0(\R) \subseteq L^\infty(\R)$, by
+  Exercise \ref{ex:conv-cont-bounded} we have
+  $f * g \in C_b(\R)$. To see the continuity
+  more directly in this case, note that
+  $g \in C_0(\R)$ implies $g$ is uniformly continuous.
+  Thus for $x, h \in \R$,
+  \begin{align*}
+    |(f * g)(x) - (f * g)(x - h)|
+    &= \left|
+    \int f(y) g(x - y)\, dy - \int f(y) g(x - h - y)\, dy
+    \right| \\
+    &\le \int |f(y)| |g(x - y) - g(x - h - y)|\, dy \\
+    &\le \bigg(
+      \sup_{u \in \R} |g(u) - g(u - h)|
+    \bigg) \int |f(y)|\, dy \\
+    &= \|g - T_h g\|_\infty \|f\|_1
+    \xrightarrow[h \to 0]{} 0
+  \end{align*}
+  by the uniform continuity of $g$.
+  Alternatively, using the commutativity
+  of translation with convolution,
+  \[
+    \|(f * g) - T_h(f * g)\|_\infty
+    = \|f * g - f * T_h g\|_\infty
+    = \|f * (g - T_h g)\|_\infty
+    \le \|f\|_1 \|g - T_h g\|_\infty
+  \]
+  by Young's inequality. Either way, this
+  establishes that
+  $f * g \in C_b(\R)$.
+
+  For the decay, assume first that $g \in C_c(\R)$,
+  so $\supp(g) \subseteq [-N, N]$ for some $N > 0$.
+  Then
+  \[
+    |(f * g)(x)|
+    \le \int_{x - N}^{x + N} |f(y)| |g(x - y)|\, dy
+    \le \|g\|_\infty \int_{x - N}^{x + N}|f(y)|\, dy
+    \xrightarrow[|x| \to \infty]{} 0
+  \]
+  since $f \in L^1(\R)$.
+  Thus $f * g \in C_0(\R)$ for any $g \in C_c(\R)$.
+
+  For the general case, we extend by density.
+  Given $g \in C_0(\R)$, by the density of
+  $C_c(\R)$ in $C_0(\R)$, we can
+  choose $g_n \in C_c(\R)$ such that $g_n \to g$
+  in $C_0(\R)$.
+  Then $f * g_n \in C_0(\R)$, and
+  \[
+    \|f * g - f * g_n\|_\infty
+    \le \|f\|_1 \|g - g_n\|_\infty
+    \xrightarrow[n \to \infty]{} 0
+  \]
+  Thus $f * g \to f * g_n$ in $L^\infty(\R)$.
+  Since $C_0(\R)$ is a Banach space with
+  $\|\cdot\|_\infty$, we
+  get $f * g \in C_0(\R)$.
+\end{proof}
+
+\begin{remark}
+  A somewhat shorter argument by density of
+  Theorem \ref{thm:conv-decay-at-infty} goes as follows:
+  Since $C_c(\R)$ is dense in both
+  $L^1(\R)$ and $C_0(\R)$, we can choose
+  $f_n, g_n \in C_c(\R)$ such that
+  $f_n \to f$ in $L^1(\R)$ and
+  $g_n \to g$ in $C_0(\R)$. Then
+  as above, $f_n * g_n \in C_0(\R)$ for each
+  $n$, and we can estimate
+  \begin{align*}
+    \|f * g - f_n * g_n\|_\infty
+    &= \|f * g - f_n * g + f_n * g - f_n * g_n\|_\infty \\
+    &\le \|f * g - f_n * g\|_\infty + \|f_n * g - f_n * g_n\|_\infty
+  \end{align*}
+  to get $f_n * g_n \to f * g$ in $L^\infty(\R)$.
+  Then as above, we conclude that $f * g \in C_0(\R)$
+  by completeness.
+\end{remark}
+
+\section{Convolution and Differentiation}
+
+\begin{definition}
+  Define the following spaces:
+  \begin{align*}
+    C_c^m(\R) &= \{f \in C_c(\R) : f, f', \dots, f^{(m)} \in C_c(\R)\}, \\
+    C_0^m(\R) &= \{f \in C_0(\R) : f, f', \dots, f^{(m)} \in C_0(\R)\}.
+  \end{align*}
+\end{definition}
+
+\begin{prop}
+  Let $1 \le p < \infty$ and $m \ge 0$. If
+  $f \in L^p(\R)$ and $g \in C^m_c(\R)$, then
+  $f * g \in C_0^m(\R)$.
+\end{prop}
+
+\begin{proof}
+  Assume first that $g \in C^1_c(\R)$. We can write
+  \begin{align*}
+    (f * g)'(x)
+    &= \lim_{h \to 0} \frac{(f * g)(x) - (f * g)(x - h)}{h}
+    = \lim_{h \to 0} \frac{1}{h} \int_\R f(y)(g(x - y) - g(x - h - y))\, dy \\
+    &\overset{(*)}{=} \int_\R f(y) \lim_{h \to 0} \frac{g(x - y) - g(x - h - y)}{h}\, dy
+    = \int_\R f(y) g'(x - y)\, dy
+    = (f * g')(x),
+  \end{align*}
+  where the interchange of limit and integral in
+  $(*)$ is justified by the dominated convergence theorem
+  (find the dominating function as an exercise).
+  Since $g \in C_c^1(\R)$, we have $g' \in C_c(\R)$,
+  and so $(f * g)' = f * g' \in C_0(\R)$.
+  The general case follows by induction (the above
+  is essentially the inductive step).
+\end{proof}
+
+\begin{example}
+  An example of a function
+  $f \in C_c^\infty(\R)$ is
+  \[
+    f(x) = e^{-1 / x^2} \chi_{(0, \infty)}(x),
+  \]
+  which is smooth but not real analytic (taking
+  $g(x) = f(x - a) f(b - x) \in C_c^\infty(\R)$ gives
+  a bump function, which cannot be real analytic
+  as vanishing on an open set would imply vanishing
+  everywhere).
+\end{example}
+
+\section{Convolution on Other Domains}
+
+\begin{definition}
+  Given sequences $a = \{a_k\}_{k \in \Z}$
+  and $b = \{b_k\}_{k \in \Z}$ of complex numbers,
+  the \emph{convolution} is
+  \[
+    (a * b)_k = \sum_{j \in \Z} a_j b_{k - j},
+  \]
+  defined whenever the above series converges.
+\end{definition}
+
+\pagebreak
+
+\begin{definition}
+  Given $1$-periodic measurable functions
+  $f, g : \R \to \C$, we can define their
+  \emph{convolution}
+  \[
+    (f * g)(x)
+    = \int_0^1 f(y) g(x - y)\, dy
+  \]
+  whenever the above integral is defined.
+\end{definition}
+
+\begin{remark}
+  Given $1$-periodic
+  $f, g : \R \to \C$, the
+  convolution $f * g$ will also be $1$-periodic
+  (if it is defined).
+\end{remark}
+
+\begin{remark}
+  We can also view a $1$-periodic
+  function $f : \R \to \C$ as a function
+  $f : \mathbb{T} \to \C$, where $\mathbb{T} = [0, 1)$
+  with addition defined modulo $1$.
+  More generally, convolution can be defined in this way
+  whenever one has a \emph{locally compact abelian group}
+  $G$: Given a \emph{Haar measure} $\mu$ on $G$
+  and $f, g : G \to \C$, we can define
+  \[
+    (f * g)(x) = \int_G f(y) g(x - y)\, d\mu(y).
+  \]
+  Every locally compact abelian group has a corresponding
+  Fourier transform.
+\end{remark}
