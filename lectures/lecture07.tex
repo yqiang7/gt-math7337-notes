@@ -1,1 +1,237 @@
-\chapter{Sept.~18 ---}
+\chapter{Sept.~18 --- Inversion Formula}
+
+\section{The Fej\'er Kernel}
+
+\begin{definition}
+  Given $f \in L^1(\R)$, the
+  \emph{inverse Fourier transform} of $f$ is
+  \[
+    \widecheck{f}(\xi)
+    = \int f(x) e^{2\pi i \xi x}\, dx
+    = \widehat{f}(-\xi), \quad \xi \in \R.
+  \]
+\end{definition}
+
+\begin{remark}
+  Recall the Riemann-Lebesgue lemma says that
+  if $f \in L^1(\R)$, then
+  $\widehat{f} \in C_0(\R)$. However, we need not in
+  general have $\widehat{f} \in L^1(\R)$.
+  For example,
+  \[
+    \widehat{\chi}_{[-T, T]}(\xi)
+    = \frac{\sin 2\pi T \xi}{\pi \xi}
+    = d_{2\pi T}(\xi) \notin L^1(\R),
+  \]
+  where $d(\xi) = (\sin \pi \xi) / \pi \xi$
+  is the Dirichlet function. In particular,
+  we cannot compute $(d_{2\pi T})^\wedge$
+  or $(d_{2\pi T})^\vee$ now since $d_{2\pi T}$
+  is not integrable. However, $d_{2\pi T} \in L^2(\R)$:
+  Later we will extend the
+  Fourier transform and its inverse to $L^2(\R)$, and
+  we will see that in that context,
+  \[
+    (d_{2\pi T})^{\wedge} = \chi_{[-T, T]} = (d_{2\pi T})^\vee.
+  \]
+  Then we will see that in the $L^2(\R)$ sense,
+  $(f * d_{2\pi T})^\vee = \widehat{f} \cdot (d_{2\pi T})^\wedge = \widehat{f} \chi_{[-T, T]}$.
+\end{remark}
+
+\begin{definition}
+  The \emph{Fej\'er function} is
+  $w(x) = (\sin (\pi x) / \pi x)^2 = (d_{\pi} (x))^2$.
+  The \emph{Fej\'er kernel} is
+  \[w_\lambda(x) = \lambda w(\lambda x).\]
+\end{definition}
+
+\begin{remark}
+  Note that $w \in L^1(\R)$, and so
+  $\{w_\lambda\}_\lambda$ is an approximate identity.
+  One can check that
+  \[
+    \int_{-\infty}^\infty w(x)\, dx = 1.
+  \]
+  Let $\chi = \chi_{[-1 / 2, 1 / 2]} \in L^1(\R)$
+  with $\int_{-\infty}^\infty \chi = 1$.
+  Then $\widehat{\chi}(\xi) = d_\pi(\xi) = \sin(\pi \xi) / \pi \xi$.
+  Set
+  $W = \chi * \chi$, with
+  \[
+    W(\xi) = \max\{1 - |\xi|, 0\}
+  \]
+  (the graph of $W$ looks like a triangle supported
+  on $[-1, 1]$). We then have
+  \[
+    \widehat{W}(\xi)
+    = (\chi * \chi)^\wedge(\xi)
+    = (\widehat{\chi}(\xi))^2
+    = (d\pi(\xi))^2 = w(\xi).
+  \]
+  Note that if we knew the inversion formula,
+  then we would get
+  $\widehat{w} = (\widecheck{W})^\wedge = W$ also.
+\end{remark}
+
+\section{Inversion Formula}
+
+\begin{remark}[Motivation for proof strategy]
+  Fix $f \in L^1(\R)$. Since $\{w_\lambda\}$
+  is an approximate identity,
+  \[
+    f * w_\lambda \longrightarrow f
+  \]
+  in $L^1$-norm. If we knew that
+  $\widehat{w} = W$, then on the Fourier side,
+  \[
+    (f * w_\lambda)^\wedge(\xi)
+    = \widehat{f}(\xi) \widehat{w}_\lambda(\xi)
+    = \widehat{f}(\xi) \widehat{w}(\xi / \lambda)
+    = \widehat{f}(\xi) W(\xi / \lambda),
+  \]
+  where $W(\xi / \lambda) \to 1$ pointwise as
+  $\lambda \to \infty$.
+  So if we knew the inversion formula, then
+  \[
+    (f * w_\lambda)(x)
+    = \int_{-\infty}^\infty \widehat{f}(\xi) W(\xi / \lambda) e^{2\pi i \xi x}\, d\xi,
+  \]
+  and taking $\lambda \to \infty$ we get the conclusion.
+  We will instead proceed to show the above identity
+  directly.
+\end{remark}
+
+\begin{theorem}
+  If $f \in L^1(\R)$, then
+  \[
+    (f * w_\lambda)(x)
+    = \int_{-\infty}^\infty \widehat{f}(\xi) W(\xi / \lambda) e^{2\pi i \xi x}\, dx
+    = \int_{-\lambda}^\lambda \widehat{f}(\xi) \left(1 - \frac{|\xi|}{\lambda}\right) e^{2\pi i \xi x}\, d\xi.
+  \]
+\end{theorem}
+
+\begin{proof}
+  By definition,
+  \[
+    (f * w_\lambda)(x) = \int_{-\infty}^\infty f(y) w_\lambda(x - y)\, dy.
+  \]
+  We know that $w(x) = \widehat{W}(x) = \widecheck{W}(x)$,
+  and so
+  \[
+    w_\lambda(x)
+    = \lambda w(\lambda x)
+    = \lambda \widecheck{W}(\lambda x)
+    = \lambda \int_{-\infty}^\infty W(\xi) e^{2\pi i \xi \lambda x}\, d\xi
+    = \int_{-\infty}^\infty W(\xi / \lambda) e^{2\pi i \xi x}\, d\xi
+  \]
+  after a change of variables (replacing
+  $\lambda x$ with $x$). So
+  \[
+    (f * w_\lambda)(x)
+    = \int_{-\infty}^\infty f(y) \int_{-\infty}^\infty W(\xi / \lambda) e^{2\pi i \xi (x - y)}\, d\xi dy
+    = \int_{-\infty}^\infty \int_{-\infty}^\infty f(y) W(\xi / \lambda) e^{2\pi i \xi (x - y)}\, d\xi dy.
+  \]
+  Since the integrand is integrable in $\xi, y$, by
+  Fubini's theorem
+  \[
+    (f * w_\lambda)(x)
+    = \int_{-\infty}^\infty \left(\int_{-\infty}^\infty f(y) e^{-2\pi iy}\, dy\right) W(\xi / \lambda) e^{2\pi i \xi x}\, d\xi
+    = \int_{-\infty}^\infty \widehat{f}(\xi) W(\xi / \lambda) e^{2\pi i \xi x}\, d\xi.
+  \]
+  The last equality in the desired result follows from
+  $W(\xi / \lambda) = (1 - |\xi| / \lambda) \chi_{[-\lambda, \lambda]}$.
+\end{proof}
+
+\begin{theorem}[Inversion formula]
+  If $f, \widehat{f} \in L^1(\R)$, then
+  $f, \widehat{f} \in C_0(\R)$ and
+  \[
+    f(x) = (\widehat{f})^\vee(x) = \int_{-\infty}^\infty \widehat{f}(\xi) e^{2\pi i \xi x}\, d\xi
+    \quad \text{and} \quad
+    f(x) = (\widecheck{f})^\wedge(x)
+    = \int_{-\infty}^\infty \widecheck{f}(\xi) e^{2\pi i \xi x}\, d\xi,
+  \]
+  with both equalities holding pointwise at
+  every $x \in \R$.
+\end{theorem}
+
+\begin{proof}
+  We already have
+  \[
+    (f * w_\lambda)(x)
+    = \int_{-\infty}^\infty \widehat{f}(\xi) W(\xi / \lambda) e^{2\pi i \xi x}\, d\xi.
+  \]
+  The integrand on the right-hand side
+  converges pointwise
+  to $\widehat{f}(\xi) e^{2\pi i \xi x}$
+  as $\lambda \to \infty$
+  (since $W(\xi / \lambda) \to 1$).
+  Since
+  $|\widehat{f}(\xi) W(\xi / \lambda) e^{2\pi i \xi x}| \le |\widehat{f}(\xi)|$
+  and $\widehat{f} \in L^1(\R)$,
+  the dominated convergence theorem gives
+  \pagebreak
+  \[
+    (f * w_\lambda)(x)
+    \xrightarrow[\lambda \to \infty]{}
+    \int_{-\infty}^\infty \widehat{f}(\xi) e^{2\pi i \xi x}\, d\xi
+  \]
+  pointwise for every $x \in \R$ (recall that
+  $f \in L^1(\R)$ and $w_\lambda \in C_c(\R)$ implies
+  $f * w_\lambda \in C_0(\R)$). Also, since
+  $\{w_\lambda\}$ is an approximate identity,
+  $f * w_\lambda \to f$ in $L^1$-norm as
+  $\lambda \to \infty$. Then there exists a
+  subsequence $f * w_{\lambda_n} \to f$ pointwise
+  a.e., so by the uniqueness of limits
+  \[
+    f(x) = \int_{-\infty}^\infty \widehat{f}(\xi) e^{2\pi i \xi x}\, d\xi
+    = (\widehat{f})^\vee(x)
+  \]
+  for a.e. $x \in \R$. Since $\widehat{f} \in L^1(\R)$,
+  we have
+  $(\widehat{f})^\vee \in C_0(\R)$, and so by
+  redefining $f$ on a set of measure zero
+  we may arrange for the above equality to hold for every
+  $x \in \R$.
+\end{proof}
+
+\begin{corollary}
+  We have
+  $\widehat{w} = (\widecheck{W})^\wedge = W = (\widehat{W})^\vee = \widecheck{w}$.
+\end{corollary}
+
+\begin{proof}
+  This follows from the inversion formula,
+  since $w, W$ are integrable and
+  we know $\widehat{W} = w$.
+\end{proof}
+
+\begin{corollary}[Uniqueness theorem]
+  If $f, g \in L^1(\R)$, then
+  $f = g$ a.e. if and only if $\widehat{f} = \widehat{g}$
+  a.e. In particular,
+  $f = 0$ a.e. if and only if $\widehat{f} = 0$ a.e.
+\end{corollary}
+
+\begin{proof}
+  The first statement follows from the latter
+  by linearity, and
+  clearly $\widehat{f} = 0$ a.e. if $f = 0$ a.e.
+  Now let $f \in L^1(\R)$ with
+  $\widehat{f} = 0$ a.e. Then $\widehat{f} = L^1(\R)$,
+  so by the inversion formula,
+  $f = (\widehat{f})^\vee = \widecheck{0} = 0$ a.e.
+\end{proof}
+
+\begin{remark}
+  If $\widehat{f} = 0$ a.e., then we could also directly
+  see from
+  \[
+    (f * w_\lambda)(x)
+    = \int_{-\infty}^\infty \widehat{f}(\xi) W(\xi / \lambda) e^{2\pi i \xi x}\, d\xi
+    = 0
+  \]
+  that $f = 0$ a.e. since $f * w_\lambda \to f$
+  in $L^1$-norm.
+\end{remark}
