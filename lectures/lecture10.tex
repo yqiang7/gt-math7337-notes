@@ -1,1 +1,229 @@
-\chapter{Sept.~30 ---}
+\chapter{Sept.~30 --- Fourier Transform on \texorpdfstring{$L^2(\R)$}{L2(R)}}
+
+\section{Properties of the Fourier Transform in \texorpdfstring{$L^2$}{L2}-Norm}
+
+\begin{remark}
+  For now, we take for granted that
+  $\{e^{2\pi i nx}\}_{n \in \Z}$ is an orthonormal
+  basis for $L^2[0, 1]$ (we will prove this later).
+  Recall that $\mathcal{F} : L^1(\R) \to C_0(\R)$ is
+  a bounded linear operator with
+  \[
+    \|\mathcal{F}\|_{L^1 \to C_0}
+    = \sup_{\|f\|_1 = 1} \|\widehat{f}\|_\infty
+    \le 1
+  \]
+  (in fact $\|\mathcal{F}\|_{L^1 \to C_0} = 1$).
+  The usual integral formula for the Fourier transform
+  \[
+    \widehat{f}(\xi)
+    = \int_{-\infty}^\infty f(x) e^{-2\pi i \xi x}\, dx
+  \]
+  does not make sense for $f \in L^2(\R) \setminus L^1(\R)$.
+  However, note that $L^1(\R) \cap L^2(\R)$ is dense in
+  both $L^1(\R)$ and $L^2(\R)$. Since we have already
+  defined $\mathcal{F}$ on $L^1(\R)$, we can
+  try to extend $\mathcal{F}$ to $L^2(\R)$ by density.
+\end{remark}
+
+\begin{remark}
+  Let $f \in \mathcal{S}(\R) \subseteq L^1(\R) \cap L^2(\R)$.
+  Letting $\widetilde{f}(x) = \overline{f(-x)}$, observe
+  that
+  \[
+    |\widehat{f}(\xi)|^2
+    = \widehat{f}(\xi) \overline{\widehat{f}(\xi)}
+    = \widehat{f}(\xi) (\widetilde{f})^\wedge(\xi)
+    = (f * \widetilde{f})^\wedge(\xi).
+  \]
+  Note that since $f \in L^1(\R)$, so
+  is $\widetilde{f}$, hence $f * \widetilde{f} \in L^1(\R)$
+  and the above formula makes sense. Note also
+  \[
+    (f * \widetilde{f})(x)
+    = \int_{-\infty}^\infty f(y) \widetilde{f}(x - y)\, dy
+    = \int_{-\infty}^\infty f(y) \overline{f(y - x)}\, dy
+    = \int_{-\infty}^\infty f(y) \overline{T_x f(y)}\, dy
+    = \langle f, T_x f \rangle,
+  \]
+  this is called the \emph{autocorrelation} of $f$.
+\end{remark}
+
+\begin{theorem}
+  If $f \in \mathcal{S}(\R)$, then
+  $\|\widehat{f}\|_2 = \|f\|_2$.
+\end{theorem}
+
+\begin{proof}
+  Note first that since $f \in \mathcal{S}(\R)$, then
+  we know $\widehat{f} \in \mathcal{S}(\R) \subseteq L^2(\R)$.
+  Let $g = f * \widetilde{f} \in L^1(\R)$
+  (since $f, \widetilde{f} \in L^1(\R)$),
+  with $\widehat{g} = |\widehat{f}|^2 \in L^1(\R)$
+  (since $\widehat{f} \in L^2(\R)$).
+  So by the inversion formula,
+  \[
+    g(x) = (\widehat{g})^\vee(x)
+  \]
+  pointwise everywhere. Evaluating the above at $x = 0$,
+  \[
+    g(0) = (\widehat{g})^\vee(0)
+    = \int_{-\infty}^\infty \widehat{g}(\xi)\, d\xi
+    = \int_{-\infty}^\infty |\widehat{f}(\xi)|^2\, d\xi
+    = \|\widehat{f}\|_2^2.
+  \]
+  On the other hand, using
+  $g = f * \widetilde{f}$, we get
+  \[
+    g(0) = (f * \widetilde{f})(0)
+    = \int_{-\infty}^\infty f(y) \widetilde{f}(0 - y)\, dy
+    = \int_{-\infty}^\infty f(y) \overline{f(y)}\, dy
+    = \|f\|_2^2.
+  \]
+  Comparing the two formulas for $g(0)$, we
+  see that $\|\widehat{f}\|_2^2 = \|f\|_2^2$.
+\end{proof}
+
+\section{The Fourier Transform on \texorpdfstring{$L^2(\R)$}{L2(R)}}
+
+\begin{remark}
+  We have seen that
+  $\mathcal{F} : \mathcal{S}(\R) \to \mathcal{S}(\R)$
+  is an isometry with respect to $\|\cdot\|_2$. Now
+  fix $f \in L^2(\R)$. Since
+  $\mathcal{S}(\R)$ is dense in $L^2(\R)$, we
+  can choose $f_n \in \mathcal{S}(\R)$ such that
+  $f_n \to f$ in $L^2$-norm, and
+  \[
+    \|\widehat{f}_n - \widehat{f}_m\|_2
+    = \|(f_n - f_m)^\wedge\|_2
+    = \|f_n - f_m\|_2
+  \]
+  since the Fourier transform is linear and
+  norm-preserving on $\mathcal{S}(\R)$.
+  Since $f_n \to f$ in $L^2$-norm,
+  $\{f_n\}_{n = 1}^\infty$
+  is a Cauchy sequence in $L^2(\R)$, so the above
+  says that $\{\widehat{f}_n\}_{n = 1}^\infty$
+  is also Cauchy in $L^2(\R)$. By the completeness
+  of $L^2(\R)$, there exists
+  $g \in L^2(\R)$ such that $\widehat{f}_n \to g$
+  in $L^2$-norm. We can then set
+  $\widehat{f} := g$.
+\end{remark}
+
+\begin{exercise}
+  Prove that the definition of $\widehat{f}$ for
+  $f \in L^2(\R)$ given above is well-defined. That is,
+  $\widehat{f}$ is independent of the
+  choice of $f_n \in \mathcal{S}(\R)$ with
+  $f_n \to f$ in $L^2$-norm.
+\end{exercise}
+
+\begin{definition}
+  The above procedure defines a unique operator
+  \begin{align*}
+    \mathcal{F} : L^2(\R) &\longrightarrow L^2(\R) \\
+    f &\longmapsto \widehat{f},
+  \end{align*}
+  called the \emph{Fourier transform} on $L^2(\R)$.
+\end{definition}
+
+\begin{exercise}
+  Show that $\mathcal{F} : L^2(\R) \to L^2(\R)$
+  is linear.
+\end{exercise}
+
+\begin{theorem}\label{thm:isometric}
+  The Fourier transform
+  $\mathcal{F}$ is isometric on $L^2(\R)$. That is,
+  \[\|\widehat{f}\|_2 = \|f\|_2, \quad f \in L^2(\R).\]
+\end{theorem}
+
+\begin{proof}
+  For $f \in L^2(\R)$, choose $f_n \in \mathcal{S}(\R)$
+  such that $f_n \to f$ in $L^2$-norm. Then
+  $\widehat{f}_n \to \widehat{f}$ in $L^2$-norm, so
+  \[
+    \|\widehat{f}\|_2
+    = \lim_{n \to \infty} \|\widehat{f}_n\|_2
+    = \lim_{n \to \infty} \|f_n\|_2
+    = \|f\|_2
+  \]
+  by the continuity of the norm and the
+  fact that $\mathcal{F}$ preserves $\|\cdot\|_2$ on
+  $\mathcal{S}(\R)$.
+\end{proof}
+
+\begin{exercise}
+  Show that if $f \in L^2(\R)$ and
+  $f_n \in L^2(\R)$ such that
+  $f_n \to f$ in $L^2$-norm, then
+  $\widehat{f}_n \to \widehat{f}$
+  in $L^2$-norm.
+\end{exercise}
+
+\begin{exercise}
+  Now we have two Fourier transform
+  operators $\mathcal{F} : L^1(\R) \to C_0(\R)$
+  (defined using the integral formula)
+  and $\mathcal{F} : L^2(\R) \to L^2(\R)$
+  (defined via extension by density
+  through $\mathcal{S}(\R)$). Show
+  that for $f \in L^1(\R) \cap L^2(\R)$,
+  the two Fourier transforms of $f$
+  agree almost everywhere. Hint: Find
+  $f_n \in \mathcal{S}(\R)$ such that
+  $f_n \to f$ in both $L^1$-norm and $L^2$-norm, e.g.
+  $f_n = f * k_n$ for a nice approximate identity
+  $\{k_n\}$.
+\end{exercise}
+
+\begin{theorem}
+  We have the following:
+  \begin{enumerate}
+    \item (Plancherel's equality)
+      $\|\widehat{f}\|_2 = \|f\|_2$ for all
+      $f \in L^2(\R)$.
+    \item (Parseval's equality)
+      $\langle \widehat{f}, \widehat{g} \rangle = \langle f, g \rangle$
+      for all $f, g \in L^1(\R)$.
+    \item The Fourier transform
+      $\mathcal{F} : L^2(\R) \to L^2(\R)$ is a unitary
+      map of $L^2(\R)$ onto itself.
+  \end{enumerate}
+\end{theorem}
+
+\begin{proof}
+  (1) This was Theorem \ref{thm:isometric}.
+
+  (2) This follows from (1) since a norm-preserving
+  operator on a Hilbert space preserves
+  $\langle \cdot, \cdot \rangle$.
+
+  (3) We have seen that $\mathcal{F}$ is linear and
+  norm-preserving, and $\mathcal{F}$ isometric
+  implies that it is injective. For surjectivity, note
+  that $\mathcal{F}$ isometric implies that
+  $\mathcal{F}$ has closed range in $L^2(\R)$.
+  On the other hand, the dense subset
+  $\mathcal{S}(\R) \subseteq L^2(\R)$ lies in $\mathrm{range}(\mathcal{F})$,
+  so it follows that
+  $\mathrm{range}(\mathcal{F}) = L^2(\R)$.
+\end{proof}
+
+\begin{definition}
+  For $f \in L^2(\R)$, its \emph{inverse Fourier transform}
+  is $\widecheck{f} = \mathcal{F}^{-1}(f) \in L^2(\R)$.
+\end{definition}
+
+\begin{corollary}[Inversion formula for $L^2(\R)$]
+  If $f \in L^2(\R)$, then
+  $f = (\widehat{f})^\vee = (\widecheck{f})^\wedge$.
+\end{corollary}
+
+\begin{exercise}
+  For $f \in L^2(\R)$, show that
+  $(\mathcal{F}^{-1} f)(\xi) = (\mathcal{F} f)(-\xi)$
+  almost everywhere.
+\end{exercise}
