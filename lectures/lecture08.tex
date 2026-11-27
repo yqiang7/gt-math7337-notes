@@ -1,1 +1,170 @@
-\chapter{Sept.~23 ---}
+\chapter{Sept.~23 --- Range of the Fourier Transform}
+
+\section{Ces\`aro Means}
+
+\begin{remark}
+  Consider an infinite series
+  $\sum_{k = -\infty}^\infty a_k$. Recall
+  that convergence of the series means that
+  the partial sums
+  $s_N = \sum_{k = -N}^N a_k$ converge.
+  We can also consider other notions of convergence.
+\end{remark}
+
+\begin{definition}
+  The \emph{Ces\`aro means} (or \emph{arithmetic averages})
+  of $\sum_{k = - \infty}^\infty a_k$ are
+  \[
+    \sigma_N = \frac{s_0 + s_1 + \dots + s_N}{N + 1}.
+  \]
+\end{definition}
+
+\begin{remark}
+  Often, $\sigma_N$ may converge even when $s_N$ does
+  not. One can check that
+  \[
+    \sigma_N = \sum_{k = -N}^N \left(1 - \frac{|k|}{N + 1}\right) a_k,
+  \]
+  so this is the analogue of the
+  Fej\'er kernel for series (and the Dirichlet kernel
+  corresponds to $s_N$).
+\end{remark}
+
+\section{More on the Dirichlet Kernel}
+
+\begin{remark}
+  Recall that for the Fej\'er kernel,
+  we had $f * w_\lambda \to f$ in $L^1$-norm.
+  For the Dirichlet kernel,
+  \[
+    (f * d_{2\pi \lambda})(x)
+    = \int_{-\lambda}^\lambda \widehat{f}(\xi) e^{2\pi i \xi x}\, d\xi,
+  \]
+  but this need not converge to $f$ in
+  $L^1$-norm in general.
+\end{remark}
+
+\begin{lemma}
+  If $g \in \mathrm{BV}[0, \delta]$, then we have
+  \[
+    \lim_{\lambda \to \infty} \int_0^\delta g(x) d_{2\pi \lambda}(x)\, dx
+    = \frac{g(0^+)}{2}.
+  \]
+\end{lemma}
+
+\begin{remark}
+  One key input for the proof of the above lemma
+  is that any function of bounded variation can be
+  written as a difference of monotone functions
+  (the Jordan decomposition), so
+  everything can be reduced to the monotone case.
+\end{remark}
+
+\begin{theorem}[Jordan's theorem]
+  If $f \in L^1(\R) \cap \mathrm{BV}[x - \delta, x + \delta]$,
+  then
+  \[
+    \lim_{\lambda \to \infty}(f * d_{2\pi \lambda})(x)
+    = \frac{f(x^+) + f(x^-)}{2}.
+  \]
+\end{theorem}
+
+\section{Range of the Fourier Transform}
+
+\begin{remark}
+  Consider the Fourier transform as an operator
+  \begin{align*}
+    \mathcal{F} : L^1(\R) &\longrightarrow C_0(\R) \subseteq L^\infty(\R) \\
+    f &\longmapsto \widehat{f}.
+  \end{align*}
+  By the uniqueness theorem (Corollary \ref{cor:uniqueness}),
+  $\mathcal{F}$ is injective.
+  We also know that $\mathcal{F}$ is linear and bounded
+  (since $\|\widehat{f}\|_\infty \le \|f\|_1$ for
+  $f \in L^1(\R)$), in particular $\mathcal{F}$
+  is continuous.
+
+  Because $L^1(\R)$ and $C_0(\R)$ are each Banach spaces,
+  if $\mathcal{F} : L^1(\R) \to C_0(\R)$ were a bijection,
+  then it then it would admit a bounded inverse
+  $\mathcal{F}^{-1} : C_0(\R) \to L^1(\R)$
+  by the inverse mapping theorem (a corollary of the
+  open mapping theorem). We will see that
+  $\mathcal{F}^{-1}$ is not bounded, hence
+  $\mathcal{F}$ cannot be surjective.
+\end{remark}
+
+\begin{prop}
+  The range $A(\R)$ of $\mathcal{F} : L^1(\R) \to C_0(\R)$
+  is dense in $C_0(\R)$.
+\end{prop}
+
+\begin{proof}
+  We claim that $C^2_c(\R) \subseteq A(\R)$,
+  from which the result follows
+  since $C^2_c(\R)$ is dense in $C_0(\R)$
+  with respect to the uniform norm (cut off tails
+  and convolve with approximate identities for smoothness).
+
+  So choose any $g \in C_c^2(\R)$.
+  Then $g, g', g'' \in C_c(\R) \subseteq L^1(\R)$.
+  Thus $\widehat{g} \in C_0(\R)$, and by the
+  smoothness and decay theorems, we have
+  \[
+    |\widehat{g}(\xi)|
+    \le \frac{C}{|\xi|^2}, \quad C = \frac{\|g''\|_1}{(2\pi)^2}.
+  \]
+  Therefore, $\widehat{g} \in L^1(\R)$, so
+  by the inversion formula we get
+  $g = (\widecheck{g})^\wedge \in A(\R)$.
+\end{proof}
+
+\begin{exercise}
+  This exercise shows
+  $\mathcal{F}^{-1} : A(\R) \to L^1(\R)$
+  is unbounded (where $A(\R) \subseteq C_0(\R)$ has
+  the uniform norm). Consequently,
+  $A(\R) \subsetneq C_0(\R)$ by the inverse
+  mapping theorem. For $k \ge 1$, consider
+  \[
+    f_k = \chi_{[-1, 1]} * \chi_{[-k, k]}.
+  \]
+  Show that
+  $\|f_k\|_\infty = 2$ and
+  $\|\widehat{f}_k\|_1 < \infty$ for every $k \ge 1$
+  (so $\widehat{f}_k \in L^1(\R)$ and the inversion
+  formula implies that $f_k \in A(\R)$),
+  but $\lim_{k \to \infty} \|\widehat{f}_k\|_1 = \infty$.
+  Since $\|\mathcal{F}^{-1}(f_k)\|_1 = \|\widehat{f}_k\|_1$,
+  this implies $\mathcal{F}^{-1}$ is unbounded.
+\end{exercise}
+
+\begin{exercise}
+  This exercise gives an explicit
+  function in $C_0(\R) \setminus A(\R)$.
+  \begin{enumerate}[(a)]
+    \item Show that if
+      $f \in L^1(\R)$ is odd, then we have
+      \[
+        \sup_{b \ge 1} \left|\int_1^b \frac{\widehat{f}(\xi)}{\xi}\, d\xi\right| < \infty.
+      \]
+      Hint: $\displaystyle \sup_{0 < a < b} \left|\int_a^b \frac{\sin x}{x}\right| \le \left|\int_0^{\pi / 2} \frac{\sin x}{x}\right| \le \frac{\pi}{2}$
+      and $f$ odd implies
+      $\displaystyle \widehat{f}(\xi) = -2i \int_0^\infty f(x) \sin 2\pi i \xi x\, dx$.
+    \item Show if $f \in L^1(\R)$ is odd,
+      $\widehat{f}$ is differentiable at $\xi = 0$,
+      and $\widehat{f} \ge 0$ on $(0, \infty)$, then
+      $\widehat{f}(\xi) / \xi \in L^1(\R)$.
+    \item Show that the function
+      \[
+        F(\xi) =
+        \begin{cases}
+          1 /{\ln(\xi)} & \text{if $\xi > e$}, \\
+          \xi / e & \text{if $-e \le \xi \le e$}, \\
+          -1 / {\ln (\xi)} & \text{if $\xi < -e$}
+        \end{cases}
+      \]
+      lies in $C_0(\R)$, but there is
+      no $f \in L^1(\R)$ with $\widehat{f} = F$.
+  \end{enumerate}
+\end{exercise}
