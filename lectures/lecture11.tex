@@ -1,1 +1,253 @@
-\chapter{Oct.~2 ---}
+\chapter{Oct.~2 --- Fourier Transform on \texorpdfstring{$L^2(\R)$}{L2(R)}, Part 2}
+
+\section{Extension of Bounded Operators}
+
+\begin{remark}
+  Recall that $\mathcal{S}(\R)$ is a dense subspace
+  of $L^2(\R)$.
+  Previously, we extended the
+  bounded linear operator
+  $\mathcal{F} : \mathcal{S}(\R) \to L^2(\R)$
+  from $\mathcal{S}(\R)$ to all of $L^2(\R)$.
+  This procedure can be done more generally.
+\end{remark}
+
+\begin{theorem}
+  Let $S$ be a dense subspace of a Banach space
+  $X$, and $Z$ a Banach space.
+  Let $T : S \to Z$ be a bounded linear map, i.e.
+  there exists $K \ge 0$ such that
+  \[
+    \|Tf\|_Z \le K\|f\|_X, \quad f \in S.
+  \]
+  Then there exists a unique bounded linear map
+  $\widetilde{T} : X \to Z$ extending $T$,
+  i.e. $\widetilde{T} f = Tf$ for $f \in S$, and
+  \[
+    \|\widetilde{T}\|_{X \to Z} = \|T\|_{S \to Z}.
+  \]
+\end{theorem}
+
+\begin{remark}
+  Last time, in the proof of Theorem \ref{thm:l2-fourier-summary}(3),
+  we said that $\mathcal{F} : L^2(\R) \to L^2(\R)$
+  being an isometry implies that it has closed range.
+  Here are some more details: Suppose that we have
+  $g_n \in \mathrm{range}(\mathcal{F})$ and
+  $g_n \to g \in L^2(\R)$. Then there exist
+  $f_n \in L^2(\R)$ such that $\widehat{f}_n = g_n$.
+  Since $g_n \to g$, the sequence $\{g_n\}_{n = 1}^\infty$
+  is Cauchy in $L^2(\R)$, and $\mathcal{F}$
+  norm-preserving implies that
+  \[
+    \|f_m - f_n\|_2
+    = \|(f_m - f_n)^\wedge\|_2
+    = \|\widehat{f}_m - \widehat{f}_n\|_2
+    = \|g_m - g_n\|_2,
+  \]
+  so $\{f_n\}_{n = 1}^\infty$ is also Cauchy in
+  $L^2(\R)$. So by completeness,
+  $f_n \to f \in L^2(\R)$, and
+  \[
+    g
+    = \lim_{n \to \infty} g_n
+    = \lim_{n \to \infty} \widehat{f}_n
+    = \widehat{f}
+  \]
+  by the continuity of $\mathcal{F}$
+  (the limits are in the $L^2(\R)$ sense).
+  Thus $g \in \mathrm{range}(\mathcal{F})$, so
+  $\mathrm{range}(\mathcal{F})$ is closed.
+\end{remark}
+
+\section{Hermite Functions}
+
+\begin{exercise}
+  Prove that since $\mathcal{F} : L^2(\R) \to L^2(\R)$
+  is unitary, any eigenvalue of $\mathcal{F}$ has
+  modulus $1$, i.e.
+  if $\widehat{f} = \lambda f$, then $|\lambda| = 1$.
+  Moreover, show that $\mathcal{F}^2 f(x) = f(-x)$
+  and $\mathcal{F}^4 f = f$ for all $f \in L^2(\R)$,
+  hence in fact the only possible eigenvalues
+  of $\mathcal{F}$
+  are $\pm 1, \pm i$.
+\end{exercise}
+
+\begin{remark}
+  Denote the derivative operator by $D$, i.e.
+  $Df = f'$.
+\end{remark}
+
+\begin{definition}
+  The \emph{Hermite functions} are
+  \[
+    H_n(x) = e^{\pi x^2} D^n(e^{-2\pi x^2}), \quad
+    n \ge 0.
+  \]
+\end{definition}
+
+\begin{example}
+  For $n = 0$,
+  $H_0(x) = e^{\pi x^2} e^{-2\pi x^2} = e^{-\pi x^2}$
+  is the Gaussian, with $\widehat{H}_0 = H_0$.
+  For $n = 1$,
+  \[
+    H_1(x) = e^{\pi x^2} D(e^{-2\pi x^2})
+    = e^{\pi x^2}(-4\pi x)e^{-2\pi x^2}
+    = -4\pi x e^{-\pi x^2}.
+  \]
+\end{example}
+
+\begin{exercise}
+  Show the following:
+  \begin{enumerate}[(a)]
+    \item For $n \ge 0$,
+      we have $\widehat{H}_{n + 1}(\xi) = -i (\widehat{H}_n)'(\xi) + 2\pi i \xi \widehat{H}_n(\xi)$.
+    \item If $G_n = (-i)^n H_n$, then
+      $G_{n + 1} = -i G_n'(x) + 2\pi i x G_n(x)$.
+    \item Use $\widehat{H}_0 = H_0$ to show
+      that $\widehat{H}_n = G_n = (-i)^n H_n$.
+      In particular, $H_n$ is an eigenfunction of
+      $\mathcal{F}$ with eigenvalue $(-i)^n$.
+  \end{enumerate}
+\end{exercise}
+
+\begin{remark}
+  The Hermite functions also have a connection
+  to differential equations. Define
+  \begin{align*}
+    T : \mathcal{S}(\R) &\longrightarrow \mathcal{S}(\R) \\
+    f &\longmapsto f'(x) - 2\pi x f(x).
+  \end{align*}
+  In other words, $T = 2\pi (i M - P)$, where
+  $P, M$ are the position and momentum operators,
+  respectively. The operator $T$ is
+  linear but unbounded with respect to the $L^2$-norm.
+  One can check the adjoint of $T$ is
+  \begin{align*}
+    T^* : \mathcal{S}(\R) &\longrightarrow \mathcal{S}(\R) \\
+    f &\longmapsto -f'(x) - 2\pi x f(x),
+  \end{align*}
+  i.e. we have
+  $\langle Tf, g \rangle = \langle f, T^* g \rangle$
+  for all $f, g \in \mathcal{S}(\R)$.
+\end{remark}
+
+\begin{exercise}
+  Define $K = T T^* : \mathcal{S}(\R) \to \mathcal{S}(\R)$, so
+  $Kf(x) = -f''(x) + (4\pi^2 x^2 - 2\pi)f(x)$.
+  Show that $\{H_n\}_{n \ge 0}$ is an orthogonal
+  basis of $L^2(\R)$ consisting of eigenvectors of $K$.
+\end{exercise}
+
+\begin{remark}
+  A direct computation (using the smoothness and
+  decay theorems) shows that
+  $(Kf)^\wedge = K \widehat{f}$ for
+  $f \in \mathcal{S}(\R)$, i.e.
+  $K\mathcal{F} = \mathcal{F} K$ on $\mathcal{S}(\R)$.
+  Since
+  commuting operators share eigenvectors, it follows
+  that $\{H_n\}_{n \ge 0}$ is also an orthogonal
+  basis of $L^2(\R)$ of eigenvectors of $\mathcal{F}$.
+\end{remark}
+
+\begin{exercise}
+  Check that $\|H_0\|_2^2 = 2^{-1 / 2}$ and
+  $\|H_n\|_2^2 = 4\pi n \|H_{n - 1}\|_2^2$
+  for $n \ge 1$. Hence if we set
+  \[
+    h_n = \frac{H_n}{\|H_n\|_2},
+  \]
+  then $\{h_n\}_{n \ge 0}$
+  is an orthonormal basis of $L^2(\R)$ of eigenvectors
+  of $\mathcal{F}$.
+\end{exercise}
+
+\begin{remark}
+  Since $\{h_n\}_{n \ge 0}$ is an orthonormal
+  basis for $L^2(\R)$, we can write
+  any $f \in L^2(\R)$ as
+  \[
+    f = \sum_{n = 0}^\infty \langle f, h_n \rangle h_n.
+  \]
+  Since $\mathcal{F}$ is a continuous
+  linear operator on $L^2(\R)$,
+  \[
+    \widehat{f} = \sum_{n = 0}^\infty \langle f, h_n \rangle \widehat{h}_n
+    = \sum_{n = 0}^\infty (-i)^n \langle f, h_n \rangle h_n.
+  \]
+  Recall that $H_n$ was an eigenvector of
+  $\mathcal{F}$ with eigenvalue $(-i)^n$, hence
+  so is $h_n$. The above identity can also be used as an
+  alternative definition
+  of $\mathcal{F}$ on $L^2(\R)$.
+\end{remark}
+
+\section{The Fourier Transform on \texorpdfstring{$L^p(\R)$}{Lp(R)}}
+
+\begin{remark}
+  So far, we have defined Fourier transforms
+  \[
+    \mathcal{F} : L^1(\R) \longrightarrow L^\infty(\R)
+    \quad \text{and} \quad \mathcal{F} : L^2(\R) \longrightarrow L^2(\R)
+  \]
+  with $\|\mathcal{F}\|_{L^1 \to L^\infty} = \|\mathcal{F}\|_{L^2 \to L^2} = 1$.
+  Note that both of these operators
+  are defined on
+  $L^1(\R) \cap L^2(\R)$ and agree on
+  $L^1(\R) \cap L^2(\R)$, which is
+  dense in both $L^1(\R)$ and $L^2(\R)$.
+  In fact, $L^1(\R) \cap L^2(\R)$
+  is dense in $L^p(\R)$ for all $1 \le p \le 2$.
+  So we can try to define
+  $\mathcal{F}$ on $L^p(\R)$
+  for $1 \le p \le 2$ by interpolation.
+\end{remark}
+
+\begin{theorem}[Riesz-Thorin interpolation theorem]
+  Let $1 \le p_0, p_1, q_0, q_1 \le \infty$
+  and assume
+  \begin{enumerate}
+    \item $T : L^{p_0}(\R) + L^{p_1}(\R) \to L^{q_0}(\R) + L^{q_1}(\R)$
+      is linear,
+    \item $T(L^{p_0}(\R)) \subseteq L^{q_0}(\R)$,
+    \item $T(L^{p_1}(\R)) \subseteq L^{q_1}(\R)$,
+    \item $M_0 = \|T\|_{L^{p_0} \to L^{q_0}}$ and
+      $M_1 = \|T\|_{L^{p_1} \to L^{q_1}}$
+      are finite.
+  \end{enumerate}
+  For $0 < \theta < 1$, define $p, q$ by the formulas
+  \[
+    \frac{1}{p} = \frac{1 - \theta}{p_0} + \frac{\theta}{p_1}
+    \quad \text{and} \quad
+    \frac{1}{q} = \frac{1 - \theta}{q_0} + \frac{\theta}{q_1}.
+  \]
+  Then $T : L^p(\R) \to L^q(\R)$
+  and $\|T\|_{L^p \to L^q} \le M_0^{1 - \theta} M_1^{\theta}$.
+\end{theorem}
+
+\begin{theorem}[Hausdorff-Young theorem]
+  For $1 < p < 2$, the Fourier transform
+  defines a bounded linear operator
+  $\mathcal{F} : L^p(\R) \to L^{p'}(\R)$ and
+  $\|\mathcal{F}\|_{L^p \to L^{p'}} \le 1$,
+  i.e. $\|\widehat{f}\|_{p'} \le \|f\|_p$ for $f \in L^p(\R)$.
+\end{theorem}
+
+\begin{remark}
+  The bound $\|\mathcal{F}\|_{L^p \to L^{p'}} \le 1$
+  is not sharp. The exact operator norm is
+  \[
+    \|\mathcal{F}\|_{L^p \to L^{p'}}
+    = A_p =
+    \left(
+      \frac{p^{1 / p}}{(p')^{1 / p'}}
+    \right)^{1 / 2},
+  \]
+  which is in general strictly less than $1$.
+  Recall that $A_p$ is the Babenko-Beckner constant,
+  which was also the optimal constant for
+  H\"older's inequality.
+\end{remark}
